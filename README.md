@@ -1,5 +1,7 @@
 # zh-search-bench
 
+[![ci](https://github.com/Pratricia/zh-search-bench/actions/workflows/ci.yml/badge.svg)](https://github.com/Pratricia/zh-search-bench/actions/workflows/ci.yml)
+
 **JavaScript 全文搜索库在中文上表现如何？有人写过「中文不行」，但没人给出数字。这是一份可复现的测量——而且它顺带证明了：问题不在库的能力，在默认配置。**
 
 一句话结论：这些库在中文上默认基本不可用——不是效果差，是**静默失效**。Lunr 默认 `hit@10` 是 **0.1%**，Orama 是 **0%**，两者都不报任何错。但 Lunr 按官方方案修好之后是 **90.6%**。
