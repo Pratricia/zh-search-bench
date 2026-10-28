@@ -1,5 +1,5 @@
 {
-  "ranAt": "2026-10-28T10:11:44.128Z",
+  "ranAt": "2026-10-28T10:22:24.132Z",
   "node": "v22.21.1",
   "platform": "win32 x64",
   "corpus": {
@@ -106,8 +106,8 @@
           "mrr": 0.917
         }
       },
-      "buildMs": 177.8,
-      "latencyP50Ms": 0.016,
+      "buildMs": 179,
+      "latencyP50Ms": 0.018,
       "sizeBytes": 625040,
       "failures": []
     },
@@ -165,8 +165,8 @@
           "mrr": 0.778
         }
       },
-      "buildMs": 140.5,
-      "latencyP50Ms": 0.003,
+      "buildMs": 140.4,
+      "latencyP50Ms": 0.002,
       "sizeBytes": null,
       "failures": []
     },
@@ -224,8 +224,8 @@
           "mrr": 0.895
         }
       },
-      "buildMs": 89.4,
-      "latencyP50Ms": 0.019,
+      "buildMs": 85.7,
+      "latencyP50Ms": 0.021,
       "sizeBytes": null,
       "failures": []
     },
@@ -283,8 +283,8 @@
           "mrr": 1
         }
       },
-      "buildMs": 397.7,
-      "latencyP50Ms": 0.01,
+      "buildMs": 402,
+      "latencyP50Ms": 0.012,
       "sizeBytes": null,
       "failures": []
     },
@@ -342,7 +342,7 @@
           "mrr": 0.778
         }
       },
-      "buildMs": 180,
+      "buildMs": 171.9,
       "latencyP50Ms": 0.005,
       "sizeBytes": 1731031,
       "failures": []
@@ -401,8 +401,8 @@
           "mrr": 1
         }
       },
-      "buildMs": 1055.7,
-      "latencyP50Ms": 0.072,
+      "buildMs": 1055.9,
+      "latencyP50Ms": 0.074,
       "sizeBytes": 3538185,
       "failures": []
     },
@@ -460,8 +460,8 @@
           "mrr": 0.037
         }
       },
-      "buildMs": 177.3,
-      "latencyP50Ms": 0.006,
+      "buildMs": 169.5,
+      "latencyP50Ms": 0.005,
       "sizeBytes": null,
       "failures": []
     },
@@ -519,8 +519,8 @@
           "mrr": 0.667
         }
       },
-      "buildMs": 932.7,
-      "latencyP50Ms": 0.029,
+      "buildMs": 860.1,
+      "latencyP50Ms": 0.028,
       "sizeBytes": null,
       "failures": []
     },
@@ -578,8 +578,8 @@
           "mrr": 1
         }
       },
-      "buildMs": 1544.2,
-      "latencyP50Ms": 0.397,
+      "buildMs": 1359.3,
+      "latencyP50Ms": 0.369,
       "sizeBytes": null,
       "failures": []
     },
@@ -637,8 +637,8 @@
           "mrr": 0.778
         }
       },
-      "buildMs": 8.8,
-      "latencyP50Ms": 6.859,
+      "buildMs": 8.7,
+      "latencyP50Ms": 6.423,
       "sizeBytes": null,
       "failures": []
     },
@@ -696,8 +696,8 @@
           "mrr": 1
         }
       },
-      "buildMs": 5,
-      "latencyP50Ms": 30.779,
+      "buildMs": 4.4,
+      "latencyP50Ms": 29.837,
       "sizeBytes": null,
       "failures": []
     },
@@ -755,8 +755,8 @@
           "mrr": 0
         }
       },
-      "buildMs": 102.8,
-      "latencyP50Ms": 0.004,
+      "buildMs": 110.9,
+      "latencyP50Ms": 0.003,
       "sizeBytes": null,
       "failures": []
     },
@@ -814,8 +814,126 @@
           "mrr": 0.963
         }
       },
-      "buildMs": 1059.2,
-      "latencyP50Ms": 0.076,
+      "buildMs": 1095.1,
+      "latencyP50Ms": 0.083,
+      "sizeBytes": null,
+      "failures": []
+    },
+    {
+      "id": "lunr/official-zh",
+      "label": "Lunr + 官方中文插件（含查询切词）",
+      "overall": {
+        "queries": 727,
+        "hitAt10": 92,
+        "recallAt10": 75.4,
+        "precisionAt10": 43.7,
+        "mrr": 0.848
+      },
+      "perSet": {
+        "zh-1char": {
+          "queries": 100,
+          "hitAt10": 45,
+          "recallAt10": 8.7,
+          "precisionAt10": 45,
+          "mrr": 0.45
+        },
+        "zh-2char": {
+          "queries": 200,
+          "hitAt10": 100,
+          "recallAt10": 74.4,
+          "precisionAt10": 69.6,
+          "mrr": 0.92
+        },
+        "zh-3char": {
+          "queries": 150,
+          "hitAt10": 98.7,
+          "recallAt10": 88.9,
+          "precisionAt10": 37.2,
+          "mrr": 0.88
+        },
+        "zh-4char": {
+          "queries": 150,
+          "hitAt10": 100,
+          "recallAt10": 96.1,
+          "precisionAt10": 26.1,
+          "mrr": 0.916
+        },
+        "zh-phrase": {
+          "queries": 100,
+          "hitAt10": 99,
+          "recallAt10": 97.6,
+          "precisionAt10": 14.8,
+          "mrr": 0.909
+        },
+        "handwritten": {
+          "queries": 27,
+          "hitAt10": 100,
+          "recallAt10": 58.2,
+          "precisionAt10": 87.7,
+          "mrr": 1
+        }
+      },
+      "buildMs": 2376.2,
+      "latencyP50Ms": 0.826,
+      "sizeBytes": null,
+      "failures": []
+    },
+    {
+      "id": "orama/official-mandarin",
+      "label": "Orama + 官方中文分词器",
+      "overall": {
+        "queries": 727,
+        "hitAt10": 48.8,
+        "recallAt10": 25.6,
+        "precisionAt10": 23.9,
+        "mrr": 0.335
+      },
+      "perSet": {
+        "zh-1char": {
+          "queries": 100,
+          "hitAt10": 89,
+          "recallAt10": 37.6,
+          "precisionAt10": 89,
+          "mrr": 0.89
+        },
+        "zh-2char": {
+          "queries": 200,
+          "hitAt10": 50,
+          "recallAt10": 21.2,
+          "precisionAt10": 25.7,
+          "mrr": 0.337
+        },
+        "zh-3char": {
+          "queries": 150,
+          "hitAt10": 28.7,
+          "recallAt10": 15.7,
+          "precisionAt10": 5,
+          "mrr": 0.158
+        },
+        "zh-4char": {
+          "queries": 150,
+          "hitAt10": 36,
+          "recallAt10": 23.7,
+          "precisionAt10": 4.9,
+          "mrr": 0.151
+        },
+        "zh-phrase": {
+          "queries": 100,
+          "hitAt10": 43,
+          "recallAt10": 37.7,
+          "precisionAt10": 5.2,
+          "mrr": 0.209
+        },
+        "handwritten": {
+          "queries": 27,
+          "hitAt10": 96.3,
+          "recallAt10": 33.6,
+          "precisionAt10": 47.8,
+          "mrr": 0.73
+        }
+      },
+      "buildMs": 630.7,
+      "latencyP50Ms": 0.528,
       "sizeBytes": null,
       "failures": []
     }

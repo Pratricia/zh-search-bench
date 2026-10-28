@@ -10,15 +10,17 @@
   "scripts": {
     "corpus": "node --use-system-ca scripts/build-corpus.mjs",
     "queries": "node scripts/build-queries.mjs",
+    "verify": "node scripts/verify-minimal.mjs",
     "bench": "node --use-system-ca scripts/run.mjs",
-    "report": "node scripts/report.mjs",
-    "all": "npm run corpus && npm run queries && npm run bench && npm run report"
+    "all": "npm run corpus && npm run queries && npm run verify && npm run bench"
   },
   "dependencies": {
     "@orama/orama": "^3.1.14",
+    "@orama/tokenizers": "^3.1.18",
     "flexsearch": "^0.8.212",
     "fuse.js": "^7.1.0",
     "lunr": "^2.3.9",
+    "lunr-languages": "^1.23.0",
     "minisearch": "^7.2.0"
   }
 }

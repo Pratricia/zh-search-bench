@@ -1,4 +1,10 @@
+import { createRequire } from 'node:module';
 import { segment, tokens } from './tokenize.mjs';
+
+const require = createRequire(import.meta.url);
+const lunrLib = (await import('lunr')).default;
+require('lunr-languages/lunr.stemmer.support')(lunrLib);
+require('lunr-languages/lunr.zh')(lunrLib);
 
 /**
  * 统一的适配器接口：
@@ -298,6 +304,55 @@ export const ADAPTERS = [
             normalizationCache: new Map(),
           },
         },
+      });
+      await insertMultiple(db, docs.map((d) => ({ id: d.id, text: d.text })));
+      return {
+        async search(query, k) {
+          const r = await search(db, { term: query, limit: k, properties: ['text'] });
+          return r.hits.map((h) => h.document.id);
+        },
+        size: () => null,
+      };
+    },
+  },
+
+  // ─────────────── 官方推荐配置（公平起见必须测） ───────────────
+  {
+    id: 'lunr/official-zh',
+    label: 'Lunr + 官方中文插件（含查询切词）',
+    async build(docs) {
+      const index = lunrLib(function () {
+        this.use(lunrLib.zh);
+        this.ref('rid');
+        this.field('text');
+        docs.forEach((d, i) => this.add({ rid: i, text: d.text }));
+      });
+      return {
+        search(query, k) {
+          // 官方插件只改了索引端分词，查询端必须自己切，否则整句被当成一个词
+          const q = lunrLib.zh
+            .tokenizer(query)
+            .map((t) => t.toString())
+            .join(' ');
+          try {
+            return index.search(q).slice(0, k).map((r) => docs[Number(r.ref)].id);
+          } catch {
+            return [];
+          }
+        },
+        size: () => null,
+      };
+    },
+  },
+  {
+    id: 'orama/official-mandarin',
+    label: 'Orama + 官方中文分词器',
+    async build(docs) {
+      const { create, insertMultiple, search } = await import('@orama/orama');
+      const { createTokenizer } = await import('@orama/tokenizers/mandarin');
+      const db = await create({
+        schema: { id: 'string', text: 'string' },
+        components: { tokenizer: createTokenizer() },
       });
       await insertMultiple(db, docs.map((d) => ({ id: d.id, text: d.text })));
       return {
