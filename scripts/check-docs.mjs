@@ -17,8 +17,8 @@ function slice(text, start, end) {
   return text.slice(a, b);
 }
 
-const reportMain = slice(report, '## 总表', '## 关键发现');
-const reportSplit = slice(report, '## 关键发现', '## 发现：修复之后');
+const reportMain = slice(report, '## 结果', '## 单字查询');
+const reportSplit = slice(report, '## 单字查询', '## 修复前后');
 const readmeMain = slice(readme, '## 结果', '## 怎么跑');
 
 const LABELS = {

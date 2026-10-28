@@ -1,6 +1,6 @@
 import { readFileSync } from 'node:fs';
 
-// 验证一个猜测：默认配置偶尔能搜到，是不是因为文档恰好以查询词开头？
+// 验证一个猜测：默认配置偶尔能搜到，是否因为文档恰好以查询词开头？
 const docs = readFileSync('data/corpus.jsonl', 'utf8')
   .split('\n')
   .filter(Boolean)

@@ -5,7 +5,7 @@ import { tokens } from '../src/tokenize.mjs';
 /**
  * 数据体检：验证「标准答案」本身自洽，且没有过期。
  *
- * 基准最容易出错的地方不是指标，是数据和标注。这个脚本检查：
+ * 这类基准里，数据和标注比指标更容易出错。这个脚本检查：
  *   1. 相关文档 id 都存在
  *   2. 每条「相关」都真的能在原文里找到查询（字面包含）
  *   3. 原文里含查询的文档，一条都没漏标
@@ -28,10 +28,10 @@ const corpusHash = createHash('sha256').update(corpusRaw).digest('hex').slice(0,
 
 // 0. 过期检查：篇数相同但内容被改过（比如改了清洗规则）也必须能发现
 if (corpusDocs !== docs.length) {
-  problems.push(`queries.json 是按 ${corpusDocs} 篇语料生成的，当前语料是 ${docs.length} 篇——请重跑 npm run queries`);
+  problems.push(`queries.json 是按 ${corpusDocs} 篇语料生成的，当前语料是 ${docs.length} 篇，请重跑 npm run queries`);
 }
 if (recordedHash !== corpusHash) {
-  problems.push(`语料指纹不一致（记录 ${recordedHash ?? '无'}，当前 ${corpusHash}）——请重跑 npm run queries`);
+  problems.push(`语料指纹不一致（记录 ${recordedHash ?? '无'}，当前 ${corpusHash}），请重跑 npm run queries`);
 }
 
 // 1 & 2. 相关文档存在，且真的包含查询

@@ -21,8 +21,8 @@ function jsonSize(value) {
  * docs: [{ id: string, text: string }]
  *
  * 每个库给两组配置：
- *   default —— 照 README 直接用的写法
- *   tuned   —— 只做「让它能正确索引中文」的最小改动
+ *   default  照 README 直接用的写法
+ *   tuned    只做「让它能正确索引中文」的最小改动
  * 用来回答：加几行代码到底能提升多少。
  */
 
