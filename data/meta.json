@@ -1,0 +1,23 @@
+{
+  "builtAt": "2026-10-28T10:02:41.138Z",
+  "sources": [
+    {
+      "name": "vue-docs-zh",
+      "url": "https://codeload.github.com/vuejs-translations/docs-zh-cn/tar.gz/refs/heads/main",
+      "attribution": "Vue.js 中文文档（vuejs-translations/docs-zh-cn）",
+      "license": "CC BY 4.0",
+      "files": 121,
+      "documents": 337
+    },
+    {
+      "name": "react-docs-zh",
+      "url": "https://codeload.github.com/reactjs/zh-hans.react.dev/tar.gz/refs/heads/main",
+      "attribution": "React 中文文档（reactjs/zh-hans.react.dev）",
+      "license": "CC BY 4.0",
+      "files": 229,
+      "documents": 796
+    }
+  ],
+  "documents": 1133,
+  "totalChars": 847590
+}

@@ -1,0 +1,823 @@
+{
+  "ranAt": "2026-10-28T10:11:44.128Z",
+  "node": "v22.21.1",
+  "platform": "win32 x64",
+  "corpus": {
+    "documents": 1133,
+    "chars": 847590,
+    "sources": [
+      {
+        "name": "vue-docs-zh",
+        "url": "https://codeload.github.com/vuejs-translations/docs-zh-cn/tar.gz/refs/heads/main",
+        "attribution": "Vue.js 中文文档（vuejs-translations/docs-zh-cn）",
+        "license": "CC BY 4.0",
+        "files": 121,
+        "documents": 337
+      },
+      {
+        "name": "react-docs-zh",
+        "url": "https://codeload.github.com/reactjs/zh-hans.react.dev/tar.gz/refs/heads/main",
+        "attribution": "React 中文文档（reactjs/zh-hans.react.dev）",
+        "license": "CC BY 4.0",
+        "files": 229,
+        "documents": 796
+      }
+    ]
+  },
+  "querySets": {
+    "zh-1char": {
+      "count": 100,
+      "avgDf": 28.62
+    },
+    "zh-2char": {
+      "count": 200,
+      "avgDf": 11.65
+    },
+    "zh-3char": {
+      "count": 150,
+      "avgDf": 5.45
+    },
+    "zh-4char": {
+      "count": 150,
+      "avgDf": 2.96
+    },
+    "zh-phrase": {
+      "count": 100,
+      "avgDf": 1.58
+    },
+    "handwritten": {
+      "count": 27,
+      "avgDf": 28.19
+    }
+  },
+  "k": 10,
+  "rows": [
+    {
+      "id": "baseline-bigram",
+      "label": "自建二元组倒排（本文基线）",
+      "overall": {
+        "queries": 727,
+        "hitAt10": 79,
+        "recallAt10": 61.5,
+        "precisionAt10": 39.9,
+        "mrr": 0.617
+      },
+      "perSet": {
+        "zh-1char": {
+          "queries": 100,
+          "hitAt10": 2,
+          "recallAt10": 0.3,
+          "precisionAt10": 2,
+          "mrr": 0.02
+        },
+        "zh-2char": {
+          "queries": 200,
+          "hitAt10": 100,
+          "recallAt10": 79.3,
+          "precisionAt10": 100,
+          "mrr": 1
+        },
+        "zh-3char": {
+          "queries": 150,
+          "hitAt10": 86.7,
+          "recallAt10": 61.4,
+          "precisionAt10": 22.6,
+          "mrr": 0.551
+        },
+        "zh-4char": {
+          "queries": 150,
+          "hitAt10": 86.7,
+          "recallAt10": 69.2,
+          "precisionAt10": 16,
+          "mrr": 0.566
+        },
+        "zh-phrase": {
+          "queries": 100,
+          "hitAt10": 85,
+          "recallAt10": 80.5,
+          "precisionAt10": 11.7,
+          "mrr": 0.543
+        },
+        "handwritten": {
+          "queries": 27,
+          "hitAt10": 100,
+          "recallAt10": 42.4,
+          "precisionAt10": 69.3,
+          "mrr": 0.917
+        }
+      },
+      "buildMs": 177.8,
+      "latencyP50Ms": 0.016,
+      "sizeBytes": 625040,
+      "failures": []
+    },
+    {
+      "id": "flexsearch/default",
+      "label": "FlexSearch（默认）",
+      "overall": {
+        "queries": 727,
+        "hitAt10": 15.5,
+        "recallAt10": 6.2,
+        "precisionAt10": 15.5,
+        "mrr": 0.155
+      },
+      "perSet": {
+        "zh-1char": {
+          "queries": 100,
+          "hitAt10": 4,
+          "recallAt10": 0.4,
+          "precisionAt10": 4,
+          "mrr": 0.04
+        },
+        "zh-2char": {
+          "queries": 200,
+          "hitAt10": 14.5,
+          "recallAt10": 3.1,
+          "precisionAt10": 14.5,
+          "mrr": 0.145
+        },
+        "zh-3char": {
+          "queries": 150,
+          "hitAt10": 8,
+          "recallAt10": 2.2,
+          "precisionAt10": 8,
+          "mrr": 0.08
+        },
+        "zh-4char": {
+          "queries": 150,
+          "hitAt10": 21.3,
+          "recallAt10": 12.3,
+          "precisionAt10": 21.3,
+          "mrr": 0.213
+        },
+        "zh-phrase": {
+          "queries": 100,
+          "hitAt10": 15,
+          "recallAt10": 12.1,
+          "precisionAt10": 15,
+          "mrr": 0.15
+        },
+        "handwritten": {
+          "queries": 27,
+          "hitAt10": 77.8,
+          "recallAt10": 17.2,
+          "precisionAt10": 77.8,
+          "mrr": 0.778
+        }
+      },
+      "buildMs": 140.5,
+      "latencyP50Ms": 0.003,
+      "sizeBytes": null,
+      "failures": []
+    },
+    {
+      "id": "flexsearch/cjk-charset",
+      "label": "FlexSearch（开启内置 CJK 编码器）",
+      "overall": {
+        "queries": 727,
+        "hitAt10": 70.6,
+        "recallAt10": 38.6,
+        "precisionAt10": 29.8,
+        "mrr": 0.471
+      },
+      "perSet": {
+        "zh-1char": {
+          "queries": 100,
+          "hitAt10": 100,
+          "recallAt10": 47.4,
+          "precisionAt10": 100,
+          "mrr": 1
+        },
+        "zh-2char": {
+          "queries": 200,
+          "hitAt10": 73.5,
+          "recallAt10": 26.6,
+          "precisionAt10": 24.7,
+          "mrr": 0.432
+        },
+        "zh-3char": {
+          "queries": 150,
+          "hitAt10": 55.3,
+          "recallAt10": 29.1,
+          "precisionAt10": 12.1,
+          "mrr": 0.275
+        },
+        "zh-4char": {
+          "queries": 150,
+          "hitAt10": 56.7,
+          "recallAt10": 40.6,
+          "precisionAt10": 11.3,
+          "mrr": 0.31
+        },
+        "zh-phrase": {
+          "queries": 100,
+          "hitAt10": 72,
+          "recallAt10": 64,
+          "precisionAt10": 13.7,
+          "mrr": 0.44
+        },
+        "handwritten": {
+          "queries": 27,
+          "hitAt10": 96.3,
+          "recallAt10": 41.2,
+          "precisionAt10": 67.7,
+          "mrr": 0.895
+        }
+      },
+      "buildMs": 89.4,
+      "latencyP50Ms": 0.019,
+      "sizeBytes": null,
+      "failures": []
+    },
+    {
+      "id": "flexsearch/bigram",
+      "label": "FlexSearch + 二元组预处理",
+      "overall": {
+        "queries": 727,
+        "hitAt10": 86.8,
+        "recallAt10": 76.4,
+        "precisionAt10": 79.8,
+        "mrr": 0.834
+      },
+      "perSet": {
+        "zh-1char": {
+          "queries": 100,
+          "hitAt10": 4,
+          "recallAt10": 0.9,
+          "precisionAt10": 4,
+          "mrr": 0.04
+        },
+        "zh-2char": {
+          "queries": 200,
+          "hitAt10": 100,
+          "recallAt10": 79.3,
+          "precisionAt10": 100,
+          "mrr": 1
+        },
+        "zh-3char": {
+          "queries": 150,
+          "hitAt10": 100,
+          "recallAt10": 91.3,
+          "precisionAt10": 87.9,
+          "mrr": 0.926
+        },
+        "zh-4char": {
+          "queries": 150,
+          "hitAt10": 100,
+          "recallAt10": 95.7,
+          "precisionAt10": 85.2,
+          "mrr": 0.937
+        },
+        "zh-phrase": {
+          "queries": 100,
+          "hitAt10": 100,
+          "recallAt10": 99.3,
+          "precisionAt10": 90,
+          "mrr": 0.962
+        },
+        "handwritten": {
+          "queries": 27,
+          "hitAt10": 100,
+          "recallAt10": 59,
+          "precisionAt10": 98.9,
+          "mrr": 1
+        }
+      },
+      "buildMs": 397.7,
+      "latencyP50Ms": 0.01,
+      "sizeBytes": null,
+      "failures": []
+    },
+    {
+      "id": "minisearch/default",
+      "label": "MiniSearch（默认）",
+      "overall": {
+        "queries": 727,
+        "hitAt10": 15.3,
+        "recallAt10": 6.2,
+        "precisionAt10": 15.2,
+        "mrr": 0.153
+      },
+      "perSet": {
+        "zh-1char": {
+          "queries": 100,
+          "hitAt10": 2,
+          "recallAt10": 0.3,
+          "precisionAt10": 2,
+          "mrr": 0.02
+        },
+        "zh-2char": {
+          "queries": 200,
+          "hitAt10": 14.5,
+          "recallAt10": 3.1,
+          "precisionAt10": 14.5,
+          "mrr": 0.145
+        },
+        "zh-3char": {
+          "queries": 150,
+          "hitAt10": 8,
+          "recallAt10": 2.2,
+          "precisionAt10": 8,
+          "mrr": 0.08
+        },
+        "zh-4char": {
+          "queries": 150,
+          "hitAt10": 21.3,
+          "recallAt10": 12.3,
+          "precisionAt10": 21.3,
+          "mrr": 0.213
+        },
+        "zh-phrase": {
+          "queries": 100,
+          "hitAt10": 15,
+          "recallAt10": 12.1,
+          "precisionAt10": 15,
+          "mrr": 0.15
+        },
+        "handwritten": {
+          "queries": 27,
+          "hitAt10": 77.8,
+          "recallAt10": 17.2,
+          "precisionAt10": 75.6,
+          "mrr": 0.778
+        }
+      },
+      "buildMs": 180,
+      "latencyP50Ms": 0.005,
+      "sizeBytes": 1731031,
+      "failures": []
+    },
+    {
+      "id": "minisearch/bigram",
+      "label": "MiniSearch + 二元组分词",
+      "overall": {
+        "queries": 727,
+        "hitAt10": 86.5,
+        "recallAt10": 76.4,
+        "precisionAt10": 47.1,
+        "mrr": 0.834
+      },
+      "perSet": {
+        "zh-1char": {
+          "queries": 100,
+          "hitAt10": 2,
+          "recallAt10": 0.3,
+          "precisionAt10": 2,
+          "mrr": 0.02
+        },
+        "zh-2char": {
+          "queries": 200,
+          "hitAt10": 100,
+          "recallAt10": 79.3,
+          "precisionAt10": 100,
+          "mrr": 1
+        },
+        "zh-3char": {
+          "queries": 150,
+          "hitAt10": 100,
+          "recallAt10": 91,
+          "precisionAt10": 40,
+          "mrr": 0.924
+        },
+        "zh-4char": {
+          "queries": 150,
+          "hitAt10": 100,
+          "recallAt10": 96.8,
+          "precisionAt10": 27.2,
+          "mrr": 0.955
+        },
+        "zh-phrase": {
+          "queries": 100,
+          "hitAt10": 100,
+          "recallAt10": 98.7,
+          "precisionAt10": 15.1,
+          "mrr": 0.954
+        },
+        "handwritten": {
+          "queries": 27,
+          "hitAt10": 100,
+          "recallAt10": 59,
+          "precisionAt10": 91.5,
+          "mrr": 1
+        }
+      },
+      "buildMs": 1055.7,
+      "latencyP50Ms": 0.072,
+      "sizeBytes": 3538185,
+      "failures": []
+    },
+    {
+      "id": "lunr/default",
+      "label": "Lunr（默认）",
+      "overall": {
+        "queries": 727,
+        "hitAt10": 0.1,
+        "recallAt10": 0,
+        "precisionAt10": 0,
+        "mrr": 0.001
+      },
+      "perSet": {
+        "zh-1char": {
+          "queries": 100,
+          "hitAt10": 0,
+          "recallAt10": 0,
+          "precisionAt10": 0,
+          "mrr": 0
+        },
+        "zh-2char": {
+          "queries": 200,
+          "hitAt10": 0,
+          "recallAt10": 0,
+          "precisionAt10": 0,
+          "mrr": 0
+        },
+        "zh-3char": {
+          "queries": 150,
+          "hitAt10": 0,
+          "recallAt10": 0,
+          "precisionAt10": 0,
+          "mrr": 0
+        },
+        "zh-4char": {
+          "queries": 150,
+          "hitAt10": 0,
+          "recallAt10": 0,
+          "precisionAt10": 0,
+          "mrr": 0
+        },
+        "zh-phrase": {
+          "queries": 100,
+          "hitAt10": 0,
+          "recallAt10": 0,
+          "precisionAt10": 0,
+          "mrr": 0
+        },
+        "handwritten": {
+          "queries": 27,
+          "hitAt10": 3.7,
+          "recallAt10": 0.7,
+          "precisionAt10": 1.1,
+          "mrr": 0.037
+        }
+      },
+      "buildMs": 177.3,
+      "latencyP50Ms": 0.006,
+      "sizeBytes": null,
+      "failures": []
+    },
+    {
+      "id": "lunr/unicode-trimmer",
+      "label": "Lunr（只替换 trimmer 的 \\W）",
+      "overall": {
+        "queries": 727,
+        "hitAt10": 10.7,
+        "recallAt10": 3.5,
+        "precisionAt10": 10.6,
+        "mrr": 0.107
+      },
+      "perSet": {
+        "zh-1char": {
+          "queries": 100,
+          "hitAt10": 2,
+          "recallAt10": 0.2,
+          "precisionAt10": 2,
+          "mrr": 0.02
+        },
+        "zh-2char": {
+          "queries": 200,
+          "hitAt10": 10,
+          "recallAt10": 1.7,
+          "precisionAt10": 10,
+          "mrr": 0.1
+        },
+        "zh-3char": {
+          "queries": 150,
+          "hitAt10": 6,
+          "recallAt10": 1.2,
+          "precisionAt10": 6,
+          "mrr": 0.06
+        },
+        "zh-4char": {
+          "queries": 150,
+          "hitAt10": 12.7,
+          "recallAt10": 6.5,
+          "precisionAt10": 12.7,
+          "mrr": 0.127
+        },
+        "zh-phrase": {
+          "queries": 100,
+          "hitAt10": 10,
+          "recallAt10": 7,
+          "precisionAt10": 10,
+          "mrr": 0.1
+        },
+        "handwritten": {
+          "queries": 27,
+          "hitAt10": 66.7,
+          "recallAt10": 13.1,
+          "precisionAt10": 64.4,
+          "mrr": 0.667
+        }
+      },
+      "buildMs": 932.7,
+      "latencyP50Ms": 0.029,
+      "sizeBytes": null,
+      "failures": []
+    },
+    {
+      "id": "lunr/bigram",
+      "label": "Lunr + trimmer 修复 + 二元组",
+      "overall": {
+        "queries": 727,
+        "hitAt10": 86.4,
+        "recallAt10": 76.1,
+        "precisionAt10": 47,
+        "mrr": 0.827
+      },
+      "perSet": {
+        "zh-1char": {
+          "queries": 100,
+          "hitAt10": 2,
+          "recallAt10": 0.3,
+          "precisionAt10": 2,
+          "mrr": 0.02
+        },
+        "zh-2char": {
+          "queries": 200,
+          "hitAt10": 100,
+          "recallAt10": 79.3,
+          "precisionAt10": 100,
+          "mrr": 1
+        },
+        "zh-3char": {
+          "queries": 150,
+          "hitAt10": 100,
+          "recallAt10": 90.8,
+          "precisionAt10": 39.8,
+          "mrr": 0.92
+        },
+        "zh-4char": {
+          "queries": 150,
+          "hitAt10": 100,
+          "recallAt10": 95.8,
+          "precisionAt10": 26.7,
+          "mrr": 0.939
+        },
+        "zh-phrase": {
+          "queries": 100,
+          "hitAt10": 99,
+          "recallAt10": 98.1,
+          "precisionAt10": 14.9,
+          "mrr": 0.934
+        },
+        "handwritten": {
+          "queries": 27,
+          "hitAt10": 100,
+          "recallAt10": 59,
+          "precisionAt10": 91.5,
+          "mrr": 1
+        }
+      },
+      "buildMs": 1544.2,
+      "latencyP50Ms": 0.397,
+      "sizeBytes": null,
+      "failures": []
+    },
+    {
+      "id": "fuse/default",
+      "label": "Fuse.js（默认阈值 0.6）",
+      "overall": {
+        "queries": 727,
+        "hitAt10": 42.5,
+        "recallAt10": 11.3,
+        "precisionAt10": 19.6,
+        "mrr": 0.334
+      },
+      "perSet": {
+        "zh-1char": {
+          "queries": 100,
+          "hitAt10": 83,
+          "recallAt10": 11.5,
+          "precisionAt10": 83,
+          "mrr": 0.83
+        },
+        "zh-2char": {
+          "queries": 200,
+          "hitAt10": 50.5,
+          "recallAt10": 9.7,
+          "precisionAt10": 11.1,
+          "mrr": 0.34
+        },
+        "zh-3char": {
+          "queries": 150,
+          "hitAt10": 30,
+          "recallAt10": 9.6,
+          "precisionAt10": 8.4,
+          "mrr": 0.192
+        },
+        "zh-4char": {
+          "queries": 150,
+          "hitAt10": 25.3,
+          "recallAt10": 12.3,
+          "precisionAt10": 5.8,
+          "mrr": 0.187
+        },
+        "zh-phrase": {
+          "queries": 100,
+          "hitAt10": 19,
+          "recallAt10": 14.8,
+          "precisionAt10": 5.2,
+          "mrr": 0.142
+        },
+        "handwritten": {
+          "queries": 27,
+          "hitAt10": 85.2,
+          "recallAt10": 12.9,
+          "precisionAt10": 38.7,
+          "mrr": 0.778
+        }
+      },
+      "buildMs": 8.8,
+      "latencyP50Ms": 6.859,
+      "sizeBytes": null,
+      "failures": []
+    },
+    {
+      "id": "fuse/exact",
+      "label": "Fuse.js（阈值 0，忽略位置）",
+      "overall": {
+        "queries": 727,
+        "hitAt10": 100,
+        "recallAt10": 83.9,
+        "precisionAt10": 100,
+        "mrr": 1
+      },
+      "perSet": {
+        "zh-1char": {
+          "queries": 100,
+          "hitAt10": 100,
+          "recallAt10": 47.4,
+          "precisionAt10": 100,
+          "mrr": 1
+        },
+        "zh-2char": {
+          "queries": 200,
+          "hitAt10": 100,
+          "recallAt10": 79.3,
+          "precisionAt10": 100,
+          "mrr": 1
+        },
+        "zh-3char": {
+          "queries": 150,
+          "hitAt10": 100,
+          "recallAt10": 93.8,
+          "precisionAt10": 100,
+          "mrr": 1
+        },
+        "zh-4char": {
+          "queries": 150,
+          "hitAt10": 100,
+          "recallAt10": 98,
+          "precisionAt10": 100,
+          "mrr": 1
+        },
+        "zh-phrase": {
+          "queries": 100,
+          "hitAt10": 100,
+          "recallAt10": 100,
+          "precisionAt10": 100,
+          "mrr": 1
+        },
+        "handwritten": {
+          "queries": 27,
+          "hitAt10": 100,
+          "recallAt10": 59.7,
+          "precisionAt10": 100,
+          "mrr": 1
+        }
+      },
+      "buildMs": 5,
+      "latencyP50Ms": 30.779,
+      "sizeBytes": null,
+      "failures": []
+    },
+    {
+      "id": "orama/default",
+      "label": "Orama（默认）",
+      "overall": {
+        "queries": 727,
+        "hitAt10": 0,
+        "recallAt10": 0,
+        "precisionAt10": 0,
+        "mrr": 0
+      },
+      "perSet": {
+        "zh-1char": {
+          "queries": 100,
+          "hitAt10": 0,
+          "recallAt10": 0,
+          "precisionAt10": 0,
+          "mrr": 0
+        },
+        "zh-2char": {
+          "queries": 200,
+          "hitAt10": 0,
+          "recallAt10": 0,
+          "precisionAt10": 0,
+          "mrr": 0
+        },
+        "zh-3char": {
+          "queries": 150,
+          "hitAt10": 0,
+          "recallAt10": 0,
+          "precisionAt10": 0,
+          "mrr": 0
+        },
+        "zh-4char": {
+          "queries": 150,
+          "hitAt10": 0,
+          "recallAt10": 0,
+          "precisionAt10": 0,
+          "mrr": 0
+        },
+        "zh-phrase": {
+          "queries": 100,
+          "hitAt10": 0,
+          "recallAt10": 0,
+          "precisionAt10": 0,
+          "mrr": 0
+        },
+        "handwritten": {
+          "queries": 27,
+          "hitAt10": 0,
+          "recallAt10": 0,
+          "precisionAt10": 0,
+          "mrr": 0
+        }
+      },
+      "buildMs": 102.8,
+      "latencyP50Ms": 0.004,
+      "sizeBytes": null,
+      "failures": []
+    },
+    {
+      "id": "orama/custom-tokenizer",
+      "label": "Orama（换掉会吞中文的分词器）",
+      "overall": {
+        "queries": 727,
+        "hitAt10": 99.3,
+        "recallAt10": 81,
+        "precisionAt10": 59.2,
+        "mrr": 0.918
+      },
+      "perSet": {
+        "zh-1char": {
+          "queries": 100,
+          "hitAt10": 99,
+          "recallAt10": 45.8,
+          "precisionAt10": 99,
+          "mrr": 0.99
+        },
+        "zh-2char": {
+          "queries": 200,
+          "hitAt10": 100,
+          "recallAt10": 79.3,
+          "precisionAt10": 100,
+          "mrr": 1
+        },
+        "zh-3char": {
+          "queries": 150,
+          "hitAt10": 99.3,
+          "recallAt10": 88.8,
+          "precisionAt10": 38,
+          "mrr": 0.856
+        },
+        "zh-4char": {
+          "queries": 150,
+          "hitAt10": 98.7,
+          "recallAt10": 92.5,
+          "precisionAt10": 24.7,
+          "mrr": 0.86
+        },
+        "zh-phrase": {
+          "queries": 100,
+          "hitAt10": 99,
+          "recallAt10": 97.4,
+          "precisionAt10": 14.7,
+          "mrr": 0.851
+        },
+        "handwritten": {
+          "queries": 27,
+          "hitAt10": 100,
+          "recallAt10": 55,
+          "precisionAt10": 84.8,
+          "mrr": 0.963
+        }
+      },
+      "buildMs": 1059.2,
+      "latencyP50Ms": 0.076,
+      "sizeBytes": null,
+      "failures": []
+    }
+  ]
+}

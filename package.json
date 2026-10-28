@@ -1,0 +1,24 @@
+{
+  "name": "zh-search-bench",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "JavaScript 全文搜索库的中文召回率基准测试",
+  "engines": {
+    "node": ">=22.15"
+  },
+  "scripts": {
+    "corpus": "node --use-system-ca scripts/build-corpus.mjs",
+    "queries": "node scripts/build-queries.mjs",
+    "bench": "node --use-system-ca scripts/run.mjs",
+    "report": "node scripts/report.mjs",
+    "all": "npm run corpus && npm run queries && npm run bench && npm run report"
+  },
+  "dependencies": {
+    "@orama/orama": "^3.1.14",
+    "flexsearch": "^0.8.212",
+    "fuse.js": "^7.1.0",
+    "lunr": "^2.3.9",
+    "minisearch": "^7.2.0"
+  }
+}
