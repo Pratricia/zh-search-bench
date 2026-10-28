@@ -1,12 +1,12 @@
 import { createRequire } from 'node:module';
 
 /**
- * 最小复现：一个库、一篇文档、查询就是原文里的子串。
+ * 最小复现：一个库、一篇文档、查询就是原文里的连续子串。
  *
  * 目的：排除「是我们集成写错了」的可能。
  * 如果连「文档里有什么，就搜什么」都搜不到，那问题在库，不在调用方。
  *
- * 同时测「官方推荐配置」，用来区分两件事：
+ * 同时测官方推荐配置，用来区分两件事：
  *   - 默认配置不可用
  *   - 这个库根本做不了
  */
@@ -44,7 +44,7 @@ const ENGINES = [
     },
   },
   {
-    id: 'Lunr + lunr-languages 中文插件（官方）',
+    id: 'Lunr + 官方中文插件（按文档写法）',
     lang: 'zh',
     async build(doc) {
       const index = lunr(function () {
@@ -63,6 +63,29 @@ const ENGINES = [
     },
   },
   {
+    id: 'Lunr + 官方中文插件 + 查询切词',
+    lang: 'zh',
+    async build(doc) {
+      const index = lunr(function () {
+        this.use(lunr.zh);
+        this.ref('rid');
+        this.field('text');
+        this.add({ rid: 0, text: doc });
+      });
+      return (q) => {
+        try {
+          const segmented = lunr.zh
+            .tokenizer(q)
+            .map((t) => t.toString())
+            .join(' ');
+          return index.search(segmented).length;
+        } catch {
+          return 0;
+        }
+      };
+    },
+  },
+  {
     id: 'Orama（默认）',
     async build(doc) {
       const { create, insert, search } = await import('@orama/orama');
@@ -72,7 +95,7 @@ const ENGINES = [
     },
   },
   {
-    id: 'Orama + @orama/tokenizers 中文（官方）',
+    id: 'Orama + 官方中文分词器',
     lang: 'zh',
     async build(doc) {
       const { create, insert, search } = await import('@orama/orama');
@@ -86,7 +109,7 @@ const ENGINES = [
     },
   },
   {
-    id: 'Orama + @orama/tokenizers 日文（官方）',
+    id: 'Orama + 官方日文分词器',
     lang: 'ja',
     async build(doc) {
       const { create, insert, search } = await import('@orama/orama');
@@ -143,22 +166,30 @@ const pad = (s, n) => {
   return String(s) + ' '.repeat(Math.max(0, n - w));
 };
 
-console.log(pad('配置', 40) + cols.map((c) => pad(c, 7)).join(''));
+console.log(pad('配置', 44) + cols.map((c) => pad(c, 7)).join(''));
 for (const r of rows) {
-  console.log(pad(r.id, 40) + cols.map((c) => pad(r.cells[c], 7)).join(''));
+  console.log(pad(r.id, 44) + cols.map((c) => pad(r.cells[c], 7)).join(''));
 }
 
-// ── 诊断信息：为什么是 0 ──
-console.log('\n诊断：');
+// ── 诊断：为什么是 0 ──
+// 注意：lunr 的 Pipeline 会就地修改 Token 对象，
+// 所以必须先取字符串快照，再用全新的 Token 跑 pipeline，
+// 否则打印出来的“原始输出”其实已经被 pipeline 改过了。
+console.log('\n诊断（lunr 默认配置，中文）：');
 const zh = CASES.find((c) => c.lang === 'zh');
 
-const tok = lunr.tokenizer(zh.doc);
-const piped = lunr.Pipeline.load(['trimmer', 'stopWordFilter', 'stemmer']).run(tok.slice());
-console.log(`  lunr.tokenizer("${zh.doc.slice(0, 6)}…") → ${JSON.stringify(tok.map((t) => t.toString()))}`);
-console.log(`  过完默认 pipeline               → ${JSON.stringify(piped.map((t) => t.toString()))}`);
+const raw = lunr.tokenizer(zh.doc).map((t) => t.toString());
+const fresh = raw.map((s) => new lunr.Token(s));
+const piped = lunr.Pipeline.load(['trimmer', 'stopWordFilter', 'stemmer'])
+  .run(fresh)
+  .map((t) => t.toString())
+  .filter(Boolean);
+
+console.log(`  tokenizer 输出      → ${JSON.stringify(raw)}`);
+console.log(`  过完默认 pipeline   → ${JSON.stringify(piped)}（中文全部消失）`);
 
 const { create } = await import('@orama/orama');
 const db = await create({ schema: { text: 'string' } });
-console.log(`  orama 默认 tokenize("${zh.doc.slice(0, 6)}…") → ${JSON.stringify(db.tokenizer.tokenize(zh.doc))}`);
+console.log(`  orama 默认 tokenize → ${JSON.stringify(db.tokenizer.tokenize(zh.doc))}`);
 
 console.log('\n注明：— 表示该配置与语言不匹配，未测。');

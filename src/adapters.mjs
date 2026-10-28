@@ -6,6 +6,15 @@ const lunrLib = (await import('lunr')).default;
 require('lunr-languages/lunr.stemmer.support')(lunrLib);
 require('lunr-languages/lunr.zh')(lunrLib);
 
+/** 索引序列化后的字节数（UTF-16 字符串长度），失败时返回 null */
+function jsonSize(value) {
+  try {
+    return JSON.stringify(value).length;
+  } catch {
+    return null;
+  }
+}
+
 /**
  * 统一的适配器接口：
  *   build(docs) -> { search(query, k): string[], size(): number|null }
@@ -74,7 +83,7 @@ export const ADAPTERS = [
             .slice(0, k)
             .map(([i]) => docs[i].id);
         },
-        size: () => JSON.stringify([...postings].map(([t, m]) => [t, m.size])).length,
+        size: () => JSON.stringify([...postings].map(([t, m]) => [t, [...m]])).length,
       };
     },
   },
@@ -182,7 +191,7 @@ export const ADAPTERS = [
             return [];
           }
         },
-        size: () => null,
+        size: () => jsonSize(index),
       };
     },
   },
@@ -208,7 +217,7 @@ export const ADAPTERS = [
             return [];
           }
         },
-        size: () => null,
+        size: () => jsonSize(index),
       };
     },
   },
@@ -234,7 +243,7 @@ export const ADAPTERS = [
             return [];
           }
         },
-        size: () => null,
+        size: () => jsonSize(index),
       };
     },
   },
@@ -277,7 +286,7 @@ export const ADAPTERS = [
     id: 'orama/default',
     label: 'Orama（默认）',
     async build(docs) {
-      const { create, insertMultiple, search } = await import('@orama/orama');
+      const { create, insertMultiple, search, save } = await import('@orama/orama');
       const db = await create({ schema: { id: 'string', text: 'string' } });
       await insertMultiple(db, docs.map((d) => ({ id: d.id, text: d.text })));
       return {
@@ -285,7 +294,7 @@ export const ADAPTERS = [
           const r = await search(db, { term: query, limit: k, properties: ['text'] });
           return r.hits.map((h) => h.document.id);
         },
-        size: () => null,
+        size: () => jsonSize(save(db)),
       };
     },
   },
@@ -293,7 +302,7 @@ export const ADAPTERS = [
     id: 'orama/custom-tokenizer',
     label: 'Orama（换掉会吞中文的分词器）',
     async build(docs) {
-      const { create, insertMultiple, search } = await import('@orama/orama');
+      const { create, insertMultiple, search, save } = await import('@orama/orama');
       const bigramTokenize = (raw) => tokens(raw);
       const db = await create({
         schema: { id: 'string', text: 'string' },
@@ -301,6 +310,7 @@ export const ADAPTERS = [
           tokenizer: {
             tokenize: bigramTokenize,
             language: 'chinese',
+            normalizeToken: (_prop, token) => token,
             normalizationCache: new Map(),
           },
         },
@@ -311,7 +321,7 @@ export const ADAPTERS = [
           const r = await search(db, { term: query, limit: k, properties: ['text'] });
           return r.hits.map((h) => h.document.id);
         },
-        size: () => null,
+        size: () => jsonSize(save(db)),
       };
     },
   },
@@ -340,7 +350,7 @@ export const ADAPTERS = [
             return [];
           }
         },
-        size: () => null,
+        size: () => jsonSize(index),
       };
     },
   },
@@ -348,7 +358,7 @@ export const ADAPTERS = [
     id: 'orama/official-mandarin',
     label: 'Orama + 官方中文分词器',
     async build(docs) {
-      const { create, insertMultiple, search } = await import('@orama/orama');
+      const { create, insertMultiple, search, save } = await import('@orama/orama');
       const { createTokenizer } = await import('@orama/tokenizers/mandarin');
       const db = await create({
         schema: { id: 'string', text: 'string' },
@@ -360,7 +370,7 @@ export const ADAPTERS = [
           const r = await search(db, { term: query, limit: k, properties: ['text'] });
           return r.hits.map((h) => h.document.id);
         },
-        size: () => null,
+        size: () => jsonSize(save(db)),
       };
     },
   },

@@ -20,7 +20,11 @@ export function segment(text) {
     .trim();
 }
 
-/** 切好的 token 列表，供自定义 tokenizer 使用 */
+/** 切好的 token 列表，供自定义 tokenizer 使用。纯标点不算 token。 */
+const MEANINGFUL = /[\p{L}\p{N}]/u;
+
 export function tokens(text) {
-  return segment(text).split(' ').filter(Boolean);
+  return segment(text)
+    .split(' ')
+    .filter((t) => t && MEANINGFUL.test(t));
 }
