@@ -19,7 +19,7 @@ function slice(text, start, end) {
 
 const reportMain = slice(report, '## 总表', '## 关键发现');
 const reportSplit = slice(report, '## 关键发现', '## 发现：修复之后');
-const readmeMain = slice(readme, '## 结果', '## 快速开始');
+const readmeMain = slice(readme, '## 结果', '## 怎么跑');
 
 const LABELS = {
   'baseline-bigram': '自建二元组倒排',
@@ -104,13 +104,13 @@ function checkMain(table, name, ids, overrides = {}) {
 
 checkMain(reportMain, 'REPORT', Object.keys(LABELS));
 checkMain(readmeMain, 'README', README_IDS, {
-  'fuse/exact': 'Fuse.js（阈值 0，校验基线）',
+  'fuse/exact': 'Fuse.js（阈值 0，基准）',
 });
 
 // README 第四列是「两字以上」
 for (const id of README_IDS) {
   const x = row(id);
-  const label = id === 'fuse/exact' ? 'Fuse.js（阈值 0，校验基线）' : LABELS[id];
+  const label = id === 'fuse/exact' ? 'Fuse.js（阈值 0，基准）' : LABELS[id];
   const cells = cellsOf(readmeMain, label, 'README');
   if (!cells) continue;
   const multi = num(cells[4]);
