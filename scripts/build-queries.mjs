@@ -3,12 +3,13 @@ import { readFileSync, writeFileSync } from 'node:fs';
 /**
  * 生成查询集与标准答案。
  *
- * 标注方法：查询 q 对文档 d 相关 ⟺ norm(d).includes(norm(q))
- * 这样标准答案完全由机器判定，不依赖人工标注，也不会因主观判断引入偏差。
+ * 标注方法：查询 q 对文档 d 相关 ⟺ d.text.includes(q)
+ * 直接对原文做子串判定，不做大小写/空白归一化——归一化会把
+ * 「响应 式」也算成包含「响应式」，而任何按字面建索引的引擎都
+ * 不可能命中这种查询，等于给所有引擎塞进一个必失项。
  * 它测的是「字面命中能力」，也就是分词失败时最先崩掉的那一环。
  */
 
-const kCJK = /[\u4e00-\u9fff]/;
 const PARTICLES = /^[的了是在和与就都也而且被把对从到为以于之其这那有着过吗呢吧啊]/;
 
 function mulberry32(seed) {
@@ -24,20 +25,22 @@ function mulberry32(seed) {
 const rand = mulberry32(20261028);
 const pick = (arr) => arr[Math.floor(rand() * arr.length)];
 
-const normalize = (s) => s.toLowerCase().replace(/[\s\u3000]+/g, '');
-
 const docs = readFileSync('data/corpus.jsonl', 'utf8')
   .split('\n')
   .filter(Boolean)
   .map((line) => JSON.parse(line));
 
-const normText = new Map(docs.map((d) => [d.id, normalize(d.text)]));
-
-/** 统计某个查询在多少篇文档里字面出现 */
+/**
+ * 统计某个查询在多少篇文档里**原文**出现。
+ *
+ * 刻意不做 normalize：这份基准测的是字面命中。如果文档里是「响应 式」
+ * （中间有空格），而查询是「响应式」，那它就不算相关——任何按字面
+ * 建索引的引擎都不可能命中，把它算进标准答案只会给所有引擎塞进
+ * 一个必失项。
+ */
 function docFreq(q) {
-  const needle = normalize(q);
   const hits = [];
-  for (const [id, text] of normText) if (text.includes(needle)) hits.push(id);
+  for (const doc of docs) if (doc.text.includes(q)) hits.push(doc.id);
   return hits;
 }
 
@@ -50,7 +53,6 @@ function randomSpan(text, n) {
     if (run[0].length < n) continue;
     const start = Math.floor(rand() * (run[0].length - n + 1));
     const span = run[0].slice(start, start + n);
-    if (!kCJK.test(span)) continue;
     if (PARTICLES.test(span)) continue; // 别拿“的了是”这种片段当查询
     return span;
   }

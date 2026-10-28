@@ -163,6 +163,7 @@ for (const adapter of ADAPTERS) {
   const overall = (() => {
     const all = [...bySet.values()];
     const n = all.reduce((a, b) => a + b.n, 0);
+    if (n === 0) return { queries: 0, hitAt10: 0, precisionAt10: 0, recallAt10: 0, mrr: 0 };
     return {
       queries: n,
       hitAt10: round((all.reduce((a, b) => a + b.anyHit, 0) / n) * 100, 1),
@@ -189,7 +190,7 @@ for (const adapter of ADAPTERS) {
     overall,
     perSet,
     buildMs: round(buildMs, 1),
-    latencyP50Ms: round(latencies[Math.floor(latencies.length / 2)], 3),
+    latencyP50Ms: latencies.length ? round(latencies[Math.floor(latencies.length / 2)], 3) : null,
     sizeBytes: size,
     invalidResults,
     failures,

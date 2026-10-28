@@ -134,7 +134,12 @@ function markdownToText(md) {
  * 先转文本再按 `##` 切，永远切不出来。
  */
 function splitRawSections(md) {
-  const body = md.replace(/^---\r?\n[\s\S]*?\r?\n---\r?\n/, '');
+  const body = md
+    .replace(/^---\r?\n[\s\S]*?\r?\n---\r?\n/, '')
+    // 代码块里也可能出现 `## `（比如「如何写文档」的示例），
+    // 不先删掉就会凭空切出一个小节。反正代码块本来也不进语料。
+    .replace(/```[\s\S]*?```/g, ' ')
+    .replace(/~~~[\s\S]*?~~~/g, ' ');
   const parts = body.split(/^##\s+/m);
   const out = [];
 

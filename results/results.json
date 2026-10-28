@@ -1,10 +1,10 @@
 {
-  "ranAt": "2026-10-28T10:36:44.307Z",
+  "ranAt": "2026-10-28T10:46:07.531Z",
   "node": "v22.21.1",
   "platform": "win32 x64",
   "corpus": {
     "documents": 1740,
-    "chars": 814527,
+    "chars": 814596,
     "sources": [
       {
         "name": "vue-docs-zh",
@@ -29,23 +29,23 @@
   "querySets": {
     "zh-1char": {
       "count": 100,
-      "avgDf": 29.81
+      "avgDf": 29.61
     },
     "zh-2char": {
       "count": 200,
-      "avgDf": 13.33
+      "avgDf": 12.7
     },
     "zh-3char": {
       "count": 150,
-      "avgDf": 7.08
+      "avgDf": 6.61
     },
     "zh-4char": {
       "count": 150,
-      "avgDf": 3.26
+      "avgDf": 3.09
     },
     "zh-phrase": {
       "count": 100,
-      "avgDf": 1.46
+      "avgDf": 1.42
     },
     "handwritten": {
       "count": 27,
@@ -60,10 +60,10 @@
       "label": "自建二元组倒排（本文基线）",
       "overall": {
         "queries": 727,
-        "hitAt10": 77.6,
-        "precisionAt10": 30.3,
-        "recallAt10": 56.5,
-        "mrr": 0.62
+        "hitAt10": 77,
+        "precisionAt10": 30.1,
+        "recallAt10": 57.6,
+        "mrr": 0.621
       },
       "perSet": {
         "zh-1char": {
@@ -76,30 +76,30 @@
         "zh-2char": {
           "queries": 200,
           "hitAt10": 100,
-          "precisionAt10": 69.3,
-          "recallAt10": 75.7,
+          "precisionAt10": 68.5,
+          "recallAt10": 77.4,
           "mrr": 1
         },
         "zh-3char": {
           "queries": 150,
-          "hitAt10": 90.7,
-          "precisionAt10": 21.7,
-          "recallAt10": 53.5,
-          "mrr": 0.624
+          "hitAt10": 87.3,
+          "precisionAt10": 22.2,
+          "recallAt10": 55,
+          "mrr": 0.62
         },
         "zh-4char": {
           "queries": 150,
-          "hitAt10": 80,
-          "precisionAt10": 14.2,
-          "recallAt10": 61.5,
-          "mrr": 0.508
+          "hitAt10": 81.3,
+          "precisionAt10": 13.9,
+          "recallAt10": 63.7,
+          "mrr": 0.526
         },
         "zh-phrase": {
           "queries": 100,
-          "hitAt10": 79,
-          "precisionAt10": 10.3,
-          "recallAt10": 74.7,
-          "mrr": 0.542
+          "hitAt10": 78,
+          "precisionAt10": 9.7,
+          "recallAt10": 73.6,
+          "mrr": 0.526
         },
         "handwritten": {
           "queries": 27,
@@ -109,9 +109,9 @@
           "mrr": 0.933
         }
       },
-      "buildMs": 195.5,
-      "latencyP50Ms": 0.018,
-      "sizeBytes": 3240462,
+      "buildMs": 196.4,
+      "latencyP50Ms": 0.019,
+      "sizeBytes": 3240753,
       "invalidResults": 0,
       "failures": []
     },
@@ -120,10 +120,10 @@
       "label": "FlexSearch（默认）",
       "overall": {
         "queries": 727,
-        "hitAt10": 16,
-        "precisionAt10": 4.9,
-        "recallAt10": 6.5,
-        "mrr": 0.16
+        "hitAt10": 16.5,
+        "precisionAt10": 4.8,
+        "recallAt10": 6.8,
+        "mrr": 0.165
       },
       "perSet": {
         "zh-1char": {
@@ -135,31 +135,31 @@
         },
         "zh-2char": {
           "queries": 200,
-          "hitAt10": 17,
-          "precisionAt10": 6.2,
-          "recallAt10": 3.8,
-          "mrr": 0.17
+          "hitAt10": 16.5,
+          "precisionAt10": 5.6,
+          "recallAt10": 3.4,
+          "mrr": 0.165
         },
         "zh-3char": {
           "queries": 150,
-          "hitAt10": 12,
+          "hitAt10": 13.3,
           "precisionAt10": 1.9,
-          "recallAt10": 3.8,
-          "mrr": 0.12
+          "recallAt10": 4.9,
+          "mrr": 0.133
         },
         "zh-4char": {
           "queries": 150,
-          "hitAt10": 17.3,
-          "precisionAt10": 4.8,
-          "recallAt10": 10.8,
-          "mrr": 0.173
+          "hitAt10": 18,
+          "precisionAt10": 4.7,
+          "recallAt10": 10.9,
+          "mrr": 0.18
         },
         "zh-phrase": {
           "queries": 100,
-          "hitAt10": 14,
-          "precisionAt10": 1.8,
-          "recallAt10": 13,
-          "mrr": 0.14
+          "hitAt10": 16,
+          "precisionAt10": 2,
+          "recallAt10": 14.5,
+          "mrr": 0.16
         },
         "handwritten": {
           "queries": 27,
@@ -169,8 +169,8 @@
           "mrr": 0.778
         }
       },
-      "buildMs": 140.6,
-      "latencyP50Ms": 0.003,
+      "buildMs": 139.4,
+      "latencyP50Ms": 0.002,
       "sizeBytes": null,
       "invalidResults": 0,
       "failures": []
@@ -180,46 +180,46 @@
       "label": "FlexSearch（开启内置 CJK 编码器）",
       "overall": {
         "queries": 727,
-        "hitAt10": 72.5,
-        "precisionAt10": 28.3,
-        "recallAt10": 41.4,
-        "mrr": 0.505
+        "hitAt10": 71.7,
+        "precisionAt10": 28,
+        "recallAt10": 40.5,
+        "mrr": 0.499
       },
       "perSet": {
         "zh-1char": {
           "queries": 100,
           "hitAt10": 100,
           "precisionAt10": 92,
-          "recallAt10": 47.4,
+          "recallAt10": 48,
           "mrr": 1
         },
         "zh-2char": {
           "queries": 200,
-          "hitAt10": 69.5,
-          "precisionAt10": 23.6,
-          "recallAt10": 26,
-          "mrr": 0.416
+          "hitAt10": 68.5,
+          "precisionAt10": 23.2,
+          "recallAt10": 25.2,
+          "mrr": 0.418
         },
         "zh-3char": {
           "queries": 150,
           "hitAt10": 65.3,
-          "precisionAt10": 16.7,
-          "recallAt10": 36.8,
-          "mrr": 0.394
+          "precisionAt10": 16.1,
+          "recallAt10": 35.8,
+          "mrr": 0.42
         },
         "zh-4char": {
           "queries": 150,
           "hitAt10": 65.3,
-          "precisionAt10": 10.5,
-          "recallAt10": 48.8,
-          "mrr": 0.384
+          "precisionAt10": 10.2,
+          "recallAt10": 47.8,
+          "mrr": 0.369
         },
         "zh-phrase": {
           "queries": 100,
-          "hitAt10": 66,
-          "precisionAt10": 8.9,
-          "recallAt10": 62.3,
-          "mrr": 0.423
+          "hitAt10": 62,
+          "precisionAt10": 8.7,
+          "recallAt10": 59.5,
+          "mrr": 0.361
         },
         "handwritten": {
           "queries": 27,
@@ -229,8 +229,8 @@
           "mrr": 0.907
         }
       },
-      "buildMs": 99,
-      "latencyP50Ms": 0.027,
+      "buildMs": 100.2,
+      "latencyP50Ms": 0.025,
       "sizeBytes": null,
       "invalidResults": 0,
       "failures": []
@@ -240,9 +240,9 @@
       "label": "FlexSearch + 二元组预处理",
       "overall": {
         "queries": 727,
-        "hitAt10": 86.5,
-        "precisionAt10": 39.3,
-        "recallAt10": 73.9,
+        "hitAt10": 86.4,
+        "precisionAt10": 38.8,
+        "recallAt10": 75.1,
         "mrr": 0.84
       },
       "perSet": {
@@ -256,30 +256,30 @@
         "zh-2char": {
           "queries": 200,
           "hitAt10": 100,
-          "precisionAt10": 69.3,
-          "recallAt10": 75.7,
+          "precisionAt10": 68.5,
+          "recallAt10": 77.4,
           "mrr": 1
         },
         "zh-3char": {
           "queries": 150,
-          "hitAt10": 100,
-          "precisionAt10": 46.3,
-          "recallAt10": 86.5,
-          "mrr": 0.965
+          "hitAt10": 99.3,
+          "precisionAt10": 45.2,
+          "recallAt10": 88.2,
+          "mrr": 0.952
         },
         "zh-4char": {
           "queries": 150,
           "hitAt10": 100,
-          "precisionAt10": 26.2,
-          "recallAt10": 94.1,
-          "mrr": 0.932
+          "precisionAt10": 26.1,
+          "recallAt10": 95.9,
+          "mrr": 0.952
         },
         "zh-phrase": {
           "queries": 100,
           "hitAt10": 99,
-          "precisionAt10": 14.5,
+          "precisionAt10": 14.1,
           "recallAt10": 99,
-          "mrr": 0.962
+          "mrr": 0.949
         },
         "handwritten": {
           "queries": 27,
@@ -289,7 +289,7 @@
           "mrr": 1
         }
       },
-      "buildMs": 432.5,
+      "buildMs": 411.9,
       "latencyP50Ms": 0.012,
       "sizeBytes": null,
       "invalidResults": 0,
@@ -300,10 +300,10 @@
       "label": "MiniSearch（默认）",
       "overall": {
         "queries": 727,
-        "hitAt10": 15.8,
-        "precisionAt10": 4.9,
-        "recallAt10": 6.5,
-        "mrr": 0.158
+        "hitAt10": 16.4,
+        "precisionAt10": 4.8,
+        "recallAt10": 6.8,
+        "mrr": 0.164
       },
       "perSet": {
         "zh-1char": {
@@ -315,31 +315,31 @@
         },
         "zh-2char": {
           "queries": 200,
-          "hitAt10": 17,
-          "precisionAt10": 6.2,
-          "recallAt10": 3.8,
-          "mrr": 0.17
+          "hitAt10": 16.5,
+          "precisionAt10": 5.6,
+          "recallAt10": 3.4,
+          "mrr": 0.165
         },
         "zh-3char": {
           "queries": 150,
-          "hitAt10": 12,
+          "hitAt10": 13.3,
           "precisionAt10": 1.9,
-          "recallAt10": 3.8,
-          "mrr": 0.12
+          "recallAt10": 4.9,
+          "mrr": 0.133
         },
         "zh-4char": {
           "queries": 150,
-          "hitAt10": 17.3,
-          "precisionAt10": 4.8,
-          "recallAt10": 10.8,
-          "mrr": 0.173
+          "hitAt10": 18,
+          "precisionAt10": 4.7,
+          "recallAt10": 10.9,
+          "mrr": 0.18
         },
         "zh-phrase": {
           "queries": 100,
-          "hitAt10": 14,
-          "precisionAt10": 1.8,
-          "recallAt10": 13,
-          "mrr": 0.14
+          "hitAt10": 16,
+          "precisionAt10": 2,
+          "recallAt10": 14.5,
+          "mrr": 0.16
         },
         "handwritten": {
           "queries": 27,
@@ -349,9 +349,9 @@
           "mrr": 0.778
         }
       },
-      "buildMs": 173.6,
-      "latencyP50Ms": 0.011,
-      "sizeBytes": 1793177,
+      "buildMs": 163.5,
+      "latencyP50Ms": 0.01,
+      "sizeBytes": 1793296,
       "invalidResults": 0,
       "failures": []
     },
@@ -360,10 +360,10 @@
       "label": "MiniSearch + 二元组分词",
       "overall": {
         "queries": 727,
-        "hitAt10": 86.4,
-        "precisionAt10": 39.3,
-        "recallAt10": 74.1,
-        "mrr": 0.843
+        "hitAt10": 86.1,
+        "precisionAt10": 38.8,
+        "recallAt10": 75.2,
+        "mrr": 0.842
       },
       "perSet": {
         "zh-1char": {
@@ -376,30 +376,30 @@
         "zh-2char": {
           "queries": 200,
           "hitAt10": 100,
-          "precisionAt10": 69.3,
-          "recallAt10": 75.7,
+          "precisionAt10": 68.5,
+          "recallAt10": 77.4,
           "mrr": 1
         },
         "zh-3char": {
           "queries": 150,
-          "hitAt10": 100,
-          "precisionAt10": 46.1,
-          "recallAt10": 86.3,
-          "mrr": 0.972
+          "hitAt10": 98.7,
+          "precisionAt10": 45.1,
+          "recallAt10": 88.2,
+          "mrr": 0.963
         },
         "zh-4char": {
           "queries": 150,
           "hitAt10": 99.3,
-          "precisionAt10": 26.3,
-          "recallAt10": 94.4,
-          "mrr": 0.951
+          "precisionAt10": 26.1,
+          "recallAt10": 95.8,
+          "mrr": 0.95
         },
         "zh-phrase": {
           "queries": 100,
           "hitAt10": 100,
-          "precisionAt10": 14.6,
+          "precisionAt10": 14.2,
           "recallAt10": 100,
-          "mrr": 0.951
+          "mrr": 0.96
         },
         "handwritten": {
           "queries": 27,
@@ -409,9 +409,9 @@
           "mrr": 1
         }
       },
-      "buildMs": 1026,
-      "latencyP50Ms": 0.081,
-      "sizeBytes": 3681639,
+      "buildMs": 1021.9,
+      "latencyP50Ms": 0.067,
+      "sizeBytes": 3681965,
       "invalidResults": 0,
       "failures": []
     },
@@ -469,9 +469,9 @@
           "mrr": 0.037
         }
       },
-      "buildMs": 173.1,
-      "latencyP50Ms": 0.006,
-      "sizeBytes": 614838,
+      "buildMs": 167.7,
+      "latencyP50Ms": 0.005,
+      "sizeBytes": 614833,
       "invalidResults": 0,
       "failures": []
     },
@@ -480,10 +480,10 @@
       "label": "Lunr（只替换 trimmer 的 \\W）",
       "overall": {
         "queries": 727,
-        "hitAt10": 10.6,
-        "precisionAt10": 2.8,
+        "hitAt10": 10.7,
+        "precisionAt10": 2.9,
         "recallAt10": 3.4,
-        "mrr": 0.106
+        "mrr": 0.107
       },
       "perSet": {
         "zh-1char": {
@@ -496,30 +496,30 @@
         "zh-2char": {
           "queries": 200,
           "hitAt10": 11.5,
-          "precisionAt10": 3,
-          "recallAt10": 2.1,
+          "precisionAt10": 3.3,
+          "recallAt10": 2.2,
           "mrr": 0.115
         },
         "zh-3char": {
           "queries": 150,
-          "hitAt10": 8.7,
-          "precisionAt10": 1.4,
-          "recallAt10": 2.5,
-          "mrr": 0.087
+          "hitAt10": 9.3,
+          "precisionAt10": 1.3,
+          "recallAt10": 2.8,
+          "mrr": 0.093
         },
         "zh-4char": {
           "queries": 150,
-          "hitAt10": 11.3,
+          "hitAt10": 10.7,
           "precisionAt10": 2.3,
-          "recallAt10": 6.3,
-          "mrr": 0.113
+          "recallAt10": 5.5,
+          "mrr": 0.107
         },
         "zh-phrase": {
           "queries": 100,
-          "hitAt10": 4,
-          "precisionAt10": 0.6,
-          "recallAt10": 4,
-          "mrr": 0.04
+          "hitAt10": 5,
+          "precisionAt10": 0.7,
+          "recallAt10": 4.5,
+          "mrr": 0.05
         },
         "handwritten": {
           "queries": 27,
@@ -529,9 +529,9 @@
           "mrr": 0.667
         }
       },
-      "buildMs": 780.8,
-      "latencyP50Ms": 0.028,
-      "sizeBytes": 2721499,
+      "buildMs": 820.8,
+      "latencyP50Ms": 0.029,
+      "sizeBytes": 2721582,
       "invalidResults": 0,
       "failures": []
     },
@@ -540,10 +540,10 @@
       "label": "Lunr + trimmer 修复 + 二元组",
       "overall": {
         "queries": 727,
-        "hitAt10": 85.8,
-        "precisionAt10": 38.7,
-        "recallAt10": 72.8,
-        "mrr": 0.833
+        "hitAt10": 85.6,
+        "precisionAt10": 38.1,
+        "recallAt10": 73.7,
+        "mrr": 0.828
       },
       "perSet": {
         "zh-1char": {
@@ -556,29 +556,29 @@
         "zh-2char": {
           "queries": 200,
           "hitAt10": 100,
-          "precisionAt10": 69.3,
-          "recallAt10": 75.7,
+          "precisionAt10": 68.5,
+          "recallAt10": 77.4,
           "mrr": 1
         },
         "zh-3char": {
           "queries": 150,
-          "hitAt10": 100,
-          "precisionAt10": 45.1,
-          "recallAt10": 85,
-          "mrr": 0.965
+          "hitAt10": 98.7,
+          "precisionAt10": 44.1,
+          "recallAt10": 86.8,
+          "mrr": 0.952
         },
         "zh-4char": {
           "queries": 150,
           "hitAt10": 97.3,
-          "precisionAt10": 25.1,
-          "recallAt10": 90.9,
-          "mrr": 0.93
+          "precisionAt10": 24.5,
+          "recallAt10": 91.5,
+          "mrr": 0.919
         },
         "zh-phrase": {
           "queries": 100,
           "hitAt10": 99,
-          "precisionAt10": 14.1,
-          "recallAt10": 98.3,
+          "precisionAt10": 13.5,
+          "recallAt10": 97.3,
           "mrr": 0.923
         },
         "handwritten": {
@@ -589,9 +589,9 @@
           "mrr": 1
         }
       },
-      "buildMs": 1308.9,
-      "latencyP50Ms": 0.405,
-      "sizeBytes": 8086200,
+      "buildMs": 1320,
+      "latencyP50Ms": 0.365,
+      "sizeBytes": 8087344,
       "invalidResults": 0,
       "failures": []
     },
@@ -600,46 +600,46 @@
       "label": "Fuse.js（默认阈值 0.6）",
       "overall": {
         "queries": 727,
-        "hitAt10": 52.8,
-        "precisionAt10": 16.1,
-        "recallAt10": 18.5,
-        "mrr": 0.447
+        "hitAt10": 51.7,
+        "precisionAt10": 15.8,
+        "recallAt10": 18.1,
+        "mrr": 0.429
       },
       "perSet": {
         "zh-1char": {
           "queries": 100,
           "hitAt10": 92,
-          "precisionAt10": 48.9,
-          "recallAt10": 16.8,
+          "precisionAt10": 49,
+          "recallAt10": 17.2,
           "mrr": 0.92
         },
         "zh-2char": {
           "queries": 200,
-          "hitAt10": 59,
-          "precisionAt10": 14,
-          "recallAt10": 13.1,
-          "mrr": 0.463
+          "hitAt10": 57.5,
+          "precisionAt10": 13.8,
+          "recallAt10": 14,
+          "mrr": 0.449
         },
         "zh-3char": {
           "queries": 150,
-          "hitAt10": 46,
-          "precisionAt10": 10.2,
-          "recallAt10": 20.6,
-          "mrr": 0.35
+          "hitAt10": 48,
+          "precisionAt10": 9.8,
+          "recallAt10": 21.2,
+          "mrr": 0.338
         },
         "zh-4char": {
           "queries": 150,
-          "hitAt10": 36.7,
-          "precisionAt10": 5.9,
-          "recallAt10": 21.5,
-          "mrr": 0.29
+          "hitAt10": 36,
+          "precisionAt10": 5.4,
+          "recallAt10": 20.8,
+          "mrr": 0.275
         },
         "zh-phrase": {
           "queries": 100,
-          "hitAt10": 29,
-          "precisionAt10": 4,
-          "recallAt10": 24.1,
-          "mrr": 0.251
+          "hitAt10": 22,
+          "precisionAt10": 3.5,
+          "recallAt10": 19.1,
+          "mrr": 0.19
         },
         "handwritten": {
           "queries": 27,
@@ -649,8 +649,8 @@
           "mrr": 0.704
         }
       },
-      "buildMs": 6.3,
-      "latencyP50Ms": 9.113,
+      "buildMs": 10.3,
+      "latencyP50Ms": 8.457,
       "sizeBytes": null,
       "invalidResults": 0,
       "failures": []
@@ -661,8 +661,8 @@
       "overall": {
         "queries": 727,
         "hitAt10": 100,
-        "precisionAt10": 52.9,
-        "recallAt10": 81.6,
+        "precisionAt10": 52.2,
+        "recallAt10": 82.9,
         "mrr": 1
       },
       "perSet": {
@@ -670,34 +670,34 @@
           "queries": 100,
           "hitAt10": 100,
           "precisionAt10": 92,
-          "recallAt10": 47.4,
+          "recallAt10": 48,
           "mrr": 1
         },
         "zh-2char": {
           "queries": 200,
           "hitAt10": 100,
-          "precisionAt10": 69.3,
-          "recallAt10": 75.7,
+          "precisionAt10": 68.5,
+          "recallAt10": 77.4,
           "mrr": 1
         },
         "zh-3char": {
           "queries": 150,
           "hitAt10": 100,
-          "precisionAt10": 49.1,
-          "recallAt10": 88.9,
+          "precisionAt10": 47.3,
+          "recallAt10": 91,
           "mrr": 1
         },
         "zh-4char": {
           "queries": 150,
           "hitAt10": 100,
-          "precisionAt10": 28.1,
-          "recallAt10": 96.6,
+          "precisionAt10": 27.7,
+          "recallAt10": 98,
           "mrr": 1
         },
         "zh-phrase": {
           "queries": 100,
           "hitAt10": 100,
-          "precisionAt10": 14.6,
+          "precisionAt10": 14.2,
           "recallAt10": 100,
           "mrr": 1
         },
@@ -709,8 +709,8 @@
           "mrr": 1
         }
       },
-      "buildMs": 5.5,
-      "latencyP50Ms": 31.461,
+      "buildMs": 5,
+      "latencyP50Ms": 28.235,
       "sizeBytes": null,
       "invalidResults": 0,
       "failures": []
@@ -769,9 +769,9 @@
           "mrr": 0
         }
       },
-      "buildMs": 69.3,
-      "latencyP50Ms": 0.004,
-      "sizeBytes": 3231562,
+      "buildMs": 65.4,
+      "latencyP50Ms": 0.003,
+      "sizeBytes": 3231693,
       "invalidResults": 0,
       "failures": []
     },
@@ -780,46 +780,46 @@
       "label": "Orama（换掉会吞中文的分词器）",
       "overall": {
         "queries": 727,
-        "hitAt10": 97,
-        "precisionAt10": 48.3,
-        "recallAt10": 74.2,
-        "mrr": 0.89
+        "hitAt10": 97.1,
+        "precisionAt10": 47.5,
+        "recallAt10": 75.2,
+        "mrr": 0.885
       },
       "perSet": {
         "zh-1char": {
           "queries": 100,
           "hitAt10": 99,
           "precisionAt10": 89.2,
-          "recallAt10": 42,
+          "recallAt10": 42.7,
           "mrr": 0.99
         },
         "zh-2char": {
           "queries": 200,
           "hitAt10": 100,
-          "precisionAt10": 69.3,
-          "recallAt10": 75.7,
+          "precisionAt10": 68.5,
+          "recallAt10": 77.4,
           "mrr": 1
         },
         "zh-3char": {
           "queries": 150,
-          "hitAt10": 96,
-          "precisionAt10": 37.9,
-          "recallAt10": 75,
-          "mrr": 0.849
+          "hitAt10": 95.3,
+          "precisionAt10": 35.7,
+          "recallAt10": 75.8,
+          "mrr": 0.838
         },
         "zh-4char": {
           "queries": 150,
-          "hitAt10": 94,
-          "precisionAt10": 21.2,
-          "recallAt10": 83.7,
-          "mrr": 0.774
+          "hitAt10": 94.7,
+          "precisionAt10": 20.8,
+          "recallAt10": 84.8,
+          "mrr": 0.767
         },
         "zh-phrase": {
           "queries": 100,
-          "hitAt10": 94,
-          "precisionAt10": 13.7,
-          "recallAt10": 93.7,
-          "mrr": 0.788
+          "hitAt10": 95,
+          "precisionAt10": 13.2,
+          "recallAt10": 94,
+          "mrr": 0.78
         },
         "handwritten": {
           "queries": 27,
@@ -829,9 +829,9 @@
           "mrr": 0.944
         }
       },
-      "buildMs": 884.1,
-      "latencyP50Ms": 0.088,
-      "sizeBytes": 15675414,
+      "buildMs": 883.1,
+      "latencyP50Ms": 0.083,
+      "sizeBytes": 15677259,
       "invalidResults": 0,
       "failures": []
     },
@@ -841,45 +841,45 @@
       "overall": {
         "queries": 727,
         "hitAt10": 90.6,
-        "precisionAt10": 40,
-        "recallAt10": 72,
-        "mrr": 0.862
+        "precisionAt10": 39.2,
+        "recallAt10": 73,
+        "mrr": 0.854
       },
       "perSet": {
         "zh-1char": {
           "queries": 100,
-          "hitAt10": 41,
-          "precisionAt10": 25,
-          "recallAt10": 12.4,
-          "mrr": 0.41
+          "hitAt10": 40,
+          "precisionAt10": 24,
+          "recallAt10": 12.1,
+          "mrr": 0.4
         },
         "zh-2char": {
           "queries": 200,
           "hitAt10": 100,
-          "precisionAt10": 63,
-          "recallAt10": 70.3,
-          "mrr": 0.934
+          "precisionAt10": 61.8,
+          "recallAt10": 71.7,
+          "mrr": 0.93
         },
         "zh-3char": {
           "queries": 150,
-          "hitAt10": 98.7,
-          "precisionAt10": 43.5,
-          "recallAt10": 82,
-          "mrr": 0.942
+          "hitAt10": 98,
+          "precisionAt10": 42.4,
+          "recallAt10": 83.6,
+          "mrr": 0.927
         },
         "zh-4char": {
           "queries": 150,
-          "hitAt10": 96.7,
-          "precisionAt10": 25.1,
-          "recallAt10": 90.1,
-          "mrr": 0.922
+          "hitAt10": 97.3,
+          "precisionAt10": 24.7,
+          "recallAt10": 91.5,
+          "mrr": 0.913
         },
         "zh-phrase": {
           "queries": 100,
-          "hitAt10": 98,
-          "precisionAt10": 14.2,
+          "hitAt10": 99,
+          "precisionAt10": 13.7,
           "recallAt10": 97.3,
-          "mrr": 0.922
+          "mrr": 0.921
         },
         "handwritten": {
           "queries": 27,
@@ -889,9 +889,9 @@
           "mrr": 1
         }
       },
-      "buildMs": 2705.6,
-      "latencyP50Ms": 0.913,
-      "sizeBytes": 8723843,
+      "buildMs": 2437.5,
+      "latencyP50Ms": 0.894,
+      "sizeBytes": 8725143,
       "invalidResults": 0,
       "failures": []
     },
@@ -900,46 +900,46 @@
       "label": "Orama + 官方中文分词器",
       "overall": {
         "queries": 727,
-        "hitAt10": 51.9,
-        "precisionAt10": 21.1,
-        "recallAt10": 27.9,
-        "mrr": 0.36
+        "hitAt10": 52.4,
+        "precisionAt10": 21,
+        "recallAt10": 28.9,
+        "mrr": 0.361
       },
       "perSet": {
         "zh-1char": {
           "queries": 100,
           "hitAt10": 81,
           "precisionAt10": 67.6,
-          "recallAt10": 33,
+          "recallAt10": 33.6,
           "mrr": 0.81
         },
         "zh-2char": {
           "queries": 200,
           "hitAt10": 50.5,
-          "precisionAt10": 22.3,
-          "recallAt10": 21,
-          "mrr": 0.34
+          "precisionAt10": 21.6,
+          "recallAt10": 21.9,
+          "mrr": 0.336
         },
         "zh-3char": {
           "queries": 150,
-          "hitAt10": 40,
-          "precisionAt10": 6.9,
-          "recallAt10": 20.4,
-          "mrr": 0.215
+          "hitAt10": 43.3,
+          "precisionAt10": 7.7,
+          "recallAt10": 23.5,
+          "mrr": 0.243
         },
         "zh-4char": {
           "queries": 150,
-          "hitAt10": 44,
-          "precisionAt10": 7.4,
-          "recallAt10": 32.7,
-          "mrr": 0.226
+          "hitAt10": 43.3,
+          "precisionAt10": 7.3,
+          "recallAt10": 32.9,
+          "mrr": 0.222
         },
         "zh-phrase": {
           "queries": 100,
           "hitAt10": 45,
           "precisionAt10": 5.9,
-          "recallAt10": 39.3,
-          "mrr": 0.264
+          "recallAt10": 39.5,
+          "mrr": 0.243
         },
         "handwritten": {
           "queries": 27,
@@ -949,9 +949,9 @@
           "mrr": 0.753
         }
       },
-      "buildMs": 651.9,
-      "latencyP50Ms": 0.573,
-      "sizeBytes": 8352487,
+      "buildMs": 622.3,
+      "latencyP50Ms": 0.559,
+      "sizeBytes": 8352877,
       "invalidResults": 0,
       "failures": []
     }

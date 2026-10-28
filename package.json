@@ -10,9 +10,10 @@
   "scripts": {
     "corpus": "node --use-system-ca scripts/build-corpus.mjs",
     "queries": "node scripts/build-queries.mjs",
+    "check": "node scripts/check-data.mjs",
     "verify": "node scripts/verify-minimal.mjs",
     "bench": "node --use-system-ca scripts/run.mjs",
-    "all": "npm run corpus && npm run queries && npm run verify && npm run bench"
+    "all": "npm run corpus && npm run queries && npm run check && npm run verify && npm run bench"
   },
   "dependencies": {
     "@orama/orama": "^3.1.14",
