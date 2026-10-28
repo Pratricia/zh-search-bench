@@ -1,7 +1,14 @@
 import { readFileSync } from 'node:fs';
 
+/**
+ * 核对 README / REPORT 里手写的数字与 results/results.json 是否一致。
+ * 只解析固定结构的表格，不试图理解正文。
+ */
+
 const r = JSON.parse(readFileSync('results/results.json', 'utf8'));
 const row = (id) => r.rows.find((x) => x.id === id);
+const report = readFileSync('REPORT.md', 'utf8');
+const readme = readFileSync('README.md', 'utf8');
 
 function slice(text, start, end) {
   const a = text.indexOf(start);
@@ -10,8 +17,9 @@ function slice(text, start, end) {
   return text.slice(a, b);
 }
 
-const reportMain = slice(readFileSync('REPORT.md', 'utf8'), '## 总表', '## 关键发现');
-const readmeMain = slice(readFileSync('README.md', 'utf8'), '## 结果', '## 总分是被');
+const reportMain = slice(report, '## 总表', '## 关键发现');
+const reportSplit = slice(report, '## 关键发现', '## 发现：修复之后');
+const readmeMain = slice(readme, '## 结果', '## 快速开始');
 
 const LABELS = {
   'baseline-bigram': '自建二元组倒排',
@@ -31,56 +39,24 @@ const LABELS = {
   'orama/official-mandarin': 'Orama + 官方中文分词器',
 };
 
-let bad = 0;
-const fail = (m) => {
-  bad++;
-  console.log('MISMATCH:', m);
-};
+const README_IDS = [
+  'fuse/exact',
+  'orama/custom-tokenizer',
+  'lunr/official-zh',
+  'flexsearch/bigram',
+  'minisearch/bigram',
+  'lunr/bigram',
+  'baseline-bigram',
+  'flexsearch/cjk-charset',
+  'orama/official-mandarin',
+  'fuse/default',
+  'flexsearch/default',
+  'minisearch/default',
+  'lunr/unicode-trimmer',
+  'lunr/default',
+  'orama/default',
+];
 
-function checkTable(table, name, ids, labelOverrides = {}) {
-  for (const id of ids) {
-    const x = row(id);
-    const label = labelOverrides[id] ?? LABELS[id];
-    const line = table.split('\n').find((l) => l.includes(label));
-    if (!line) {
-      fail(`${name} 找不到 ${id} 的行（标签「${label}」）`);
-      continue;
-    }
-    const cells = line.split('|');
-    const hit = parseFloat(cells[2]);
-    const p = parseFloat(cells[3]);
-    if (Math.abs(hit - x.overall.hitAt10) > 0.05) fail(`${name} ${id} hit@10: 文档 ${hit} vs 结果 ${x.overall.hitAt10}`);
-    if (Math.abs(p - x.overall.precisionAt10) > 0.05) fail(`${name} ${id} P@10: 文档 ${p} vs 结果 ${x.overall.precisionAt10}`);
-  }
-}
-
-checkTable(reportMain, 'REPORT', Object.keys(LABELS), {
-  'lunr/bigram': 'Lunr + 修复 trimmer + 二元组',
-});
-checkTable(
-  readmeMain,
-  'README',
-  [
-    'fuse/exact',
-    'orama/custom-tokenizer',
-    'lunr/official-zh',
-    'flexsearch/bigram',
-    'minisearch/bigram',
-    'flexsearch/cjk-charset',
-    'orama/official-mandarin',
-    'flexsearch/default',
-    'minisearch/default',
-    'lunr/default',
-    'orama/default',
-  ],
-  {
-    'lunr/official-zh': '**Lunr + 官方中文插件**',
-  },
-);
-
-console.log(bad === 0 ? '文档主表数字与 results.json 一致' : `${bad} 处不一致`);
-
-// ── 单字 / 两字以上 / 全部 表格 ──
 const MULTI = ['zh-2char', 'zh-3char', 'zh-4char', 'zh-phrase', 'handwritten'];
 const multiHit = (x) => {
   let n = 0;
@@ -94,35 +70,66 @@ const multiHit = (x) => {
   return +((h / n) * 100).toFixed(1);
 };
 
-const reportSplit = slice(readFileSync('REPORT.md', 'utf8'), '## 关键发现', '## 发现：修复之后');
-const readmeSplit = slice(readFileSync('README.md', 'utf8'), '## 总分是被', '## 失败是两种');
+let bad = 0;
+const fail = (m) => {
+  bad++;
+  console.log('MISMATCH:', m);
+};
 
-function checkSplit(table, name, ids, overrides = {}) {
+function cellsOf(table, label, name) {
+  const line = table.split('\n').find((l) => l.includes(label));
+  if (!line) {
+    fail(`${name} 找不到「${label}」`);
+    return null;
+  }
+  return line.split('|').map((s) => s.trim());
+}
+
+const near = (a, b) => Math.abs(a - b) <= 0.05;
+// 单元格里可能有 ** 加粗、% 百分号，统一剥掉再解析
+const num = (s) => parseFloat(String(s).replace(/[^\d.-]/g, ''));
+
+// 主表：| 配置 | hit@10 | P@10 | ... |
+function checkMain(table, name, ids, overrides = {}) {
   for (const id of ids) {
     const x = row(id);
-    const label = overrides[id] ?? LABELS[id];
-    const line = table.split('\n').find((l) => l.includes(label));
-    if (!line) {
-      fail(`${name} 单字表找不到 ${id}`);
-      continue;
-    }
-    const cells = line.split('|');
-    const single = parseFloat(cells[2]);
-    const multi = parseFloat(cells[3]);
-    const all = parseFloat(cells[4]);
-    if (Math.abs(single - x.perSet['zh-1char'].hitAt10) > 0.05) fail(`${name} ${id} 单字: ${single} vs ${x.perSet['zh-1char'].hitAt10}`);
-    if (Math.abs(multi - multiHit(x)) > 0.05) fail(`${name} ${id} 多字: ${multi} vs ${multiHit(x)}`);
-    if (Math.abs(all - x.overall.hitAt10) > 0.05) fail(`${name} ${id} 全部: ${all} vs ${x.overall.hitAt10}`);
+    const cells = cellsOf(table, overrides[id] ?? LABELS[id], name);
+    if (!cells) continue;
+    const hit = num(cells[2]);
+    const p = num(cells[3]);
+    if (!near(hit, x.overall.hitAt10)) fail(`${name} ${id} hit@10: 文档 ${hit} vs 结果 ${x.overall.hitAt10}`);
+    if (!near(p, x.overall.precisionAt10)) fail(`${name} ${id} P@10: 文档 ${p} vs 结果 ${x.overall.precisionAt10}`);
   }
 }
 
-checkSplit(reportSplit, 'REPORT', Object.keys(LABELS), { 'lunr/bigram': 'Lunr + 修复 + 二元组' });
-checkSplit(
-  readmeSplit,
-  'README',
-  ['flexsearch/bigram', 'minisearch/bigram', 'lunr/bigram', 'lunr/official-zh', 'orama/custom-tokenizer'],
-  { 'lunr/bigram': 'Lunr + 二元组' },
-);
+checkMain(reportMain, 'REPORT', Object.keys(LABELS));
+checkMain(readmeMain, 'README', README_IDS, {
+  'fuse/exact': 'Fuse.js（阈值 0，校验基线）',
+});
 
-console.log(bad === 0 ? '文档全部数字与 results.json 一致' : `${bad} 处不一致`);
+// README 第四列是「两字以上」
+for (const id of README_IDS) {
+  const x = row(id);
+  const label = id === 'fuse/exact' ? 'Fuse.js（阈值 0，校验基线）' : LABELS[id];
+  const cells = cellsOf(readmeMain, label, 'README');
+  if (!cells) continue;
+  const multi = num(cells[4]);
+  if (!near(multi, multiHit(x))) fail(`README ${id} 两字以上: 文档 ${multi} vs 结果 ${multiHit(x)}`);
+}
+
+// REPORT 单字 / 两字以上 / 全部：| 配置 | 单字 | 两字以上 | 全部 |
+for (const id of Object.keys(LABELS)) {
+  const x = row(id);
+  const label = id === 'lunr/bigram' ? 'Lunr + 修复 + 二元组' : LABELS[id];
+  const cells = cellsOf(reportSplit, label, 'REPORT');
+  if (!cells) continue;
+  const single = num(cells[2]);
+  const multi = num(cells[3]);
+  const all = num(cells[4]);
+  if (!near(single, x.perSet['zh-1char'].hitAt10)) fail(`REPORT ${id} 单字: ${single} vs ${x.perSet['zh-1char'].hitAt10}`);
+  if (!near(multi, multiHit(x))) fail(`REPORT ${id} 两字以上: ${multi} vs ${multiHit(x)}`);
+  if (!near(all, x.overall.hitAt10)) fail(`REPORT ${id} 全部: ${all} vs ${x.overall.hitAt10}`);
+}
+
+console.log(bad === 0 ? '文档数字与 results.json 一致' : `${bad} 处不一致`);
 process.exit(bad ? 1 : 0);
