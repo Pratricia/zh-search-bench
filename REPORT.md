@@ -252,7 +252,7 @@ Fuse.js 把 `threshold` 设成 0、`ignoreLocation` 设为 true，等于放弃�
 基准最容易出错的地方不是指标，是数据和标注。以下检查都在脚本里，可复跑：
 
 1. **最小复现**（`npm run verify`）：单文档、单查询，排除集成错误。
-2. **数据自洽**（`npm run check`）：每条「相关」都真的能在原文里找到查询；原文含查询的文档一条没漏标；相关 id 全部存在；`queries.json` 与当前语料篇数一致（防止改了语料忘了重生成查询）。
+2. **数据自洽**（`npm run check`）：每条「相关」都真的能在原文里找到查询；原文含查询的文档一条没漏标；相关 id 全部存在；`queries.json` 记录的语料指纹与当前 `corpus.jsonl` 一致（防止改了语料忘了重生成查询）。
 3. **标注不做归一化**：只认原文连续子串。早期版本会去掉空白再比对，导致 67 对（0.8%）「文档里其实没有这个子串」的标注——那是所有引擎都不可能命中的必失项，已修正。
 4. **返回 id 校验**：适配器返回未知或重复 id 会被计数并在 `results.json` 里报警，不会被静默当成「没搜到」。
 5. **P@10 用标准分母**（固定除以 10），不按返回条数算，避免「只返回 1 条相关结果 → 100%」的虚高。
@@ -260,6 +260,8 @@ Fuse.js 把 `threshold` 设成 0、`ignoreLocation` 设为 true，等于放弃�
 7. **语料锁定 commit**：tarball 按 SHA 下载，SHA 写进 `meta.json`，上游 main 变化不会悄悄改变结果。
 8. **查询生成固定随机种子**：同一份语料生成同一批查询。
 9. **代码块不参与切节**：先删掉 fenced code 再按 `##` 切，避免示例里的 `##` 凭空造出小节。
+10. **结果自带溯源信息**：`results.json` 记录语料指纹、查询指纹、Node 版本、7 个依赖的精确版本，以及 Lunr 中文插件实际走的是 jieba 还是 `Intl.Segmenter`。
+11. **文档数字可核对**（`npm run check:docs`）：直接解析 README / REPORT 的表格，逐格比对 `results.json`，防止手写数字和结果脱节。
 
 **已知局限**：
 
@@ -271,6 +273,7 @@ Fuse.js 把 `threshold` 设成 0、`ignoreLocation` 设为 true，等于放弃�
 6. **索引体积口径不统一**，不能跨库比较。
 7. 未覆盖繁简混用、拼音输入。
 8. `Intl.Segmenter` 的分词结果依赖 Node 的 ICU 版本，不同 Node 版本可能有差异。
+9. **Lunr 官方中文插件有两条路径**：装了可选依赖 `@node-rs/jieba` 就用词典分词，否则退回 `Intl.Segmenter` + 二元组。本次未安装，走的是后者（`results.json` 的 `environment.lunrZhJieba` 记录为 `false`）。装了 jieba 后这行数字会变，不能直接对比。
 
 ---
 

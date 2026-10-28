@@ -11,6 +11,7 @@
     "corpus": "node --use-system-ca scripts/build-corpus.mjs",
     "queries": "node scripts/build-queries.mjs",
     "check": "node scripts/check-data.mjs",
+    "check:docs": "node scripts/check-docs.mjs",
     "verify": "node scripts/verify-minimal.mjs",
     "bench": "node --use-system-ca scripts/run.mjs",
     "all": "npm run corpus && npm run queries && npm run check && npm run verify && npm run bench"

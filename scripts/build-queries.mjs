@@ -1,3 +1,4 @@
+import { createHash } from 'node:crypto';
 import { readFileSync, writeFileSync } from 'node:fs';
 
 /**
@@ -25,10 +26,14 @@ function mulberry32(seed) {
 const rand = mulberry32(20261028);
 const pick = (arr) => arr[Math.floor(rand() * arr.length)];
 
-const docs = readFileSync('data/corpus.jsonl', 'utf8')
+const corpusRaw = readFileSync('data/corpus.jsonl', 'utf8');
+const docs = corpusRaw
   .split('\n')
   .filter(Boolean)
   .map((line) => JSON.parse(line));
+
+/** 语料指纹：语料内容一变，查询就必须重生成 */
+const corpusHash = createHash('sha256').update(corpusRaw).digest('hex').slice(0, 16);
 
 /**
  * 统计某个查询在多少篇文档里**原文**出现。
@@ -108,7 +113,17 @@ const bySet = Object.fromEntries(
 
 writeFileSync(
   'data/queries.json',
-  JSON.stringify({ generatedAt: new Date().toISOString(), corpusDocs: docs.length, sets: bySet, queries: all }, null, 0),
+  JSON.stringify(
+    {
+      generatedAt: new Date().toISOString(),
+      corpusHash,
+      corpusDocs: docs.length,
+      sets: bySet,
+      queries: all,
+    },
+    null,
+    0,
+  ),
   'utf8',
 );
 

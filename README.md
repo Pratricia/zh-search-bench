@@ -87,6 +87,7 @@ npm run queries   # 生成查询集与标准答案（固定随机种子，结果
 npm run check     # 数据体检：标注自洽、无过期、无代码块污染
 npm run verify    # 最小复现：一个库、一篇文档、一句原文查询
 npm run bench     # 跑全部配置，输出 results/results.json
+npm run check:docs # 核对 README / REPORT 的数字与 results.json 一致
 ```
 
 冒烟测试（按查询集分层抽样，不会只跑到单字）：
@@ -108,6 +109,7 @@ BENCH_LIMIT=60 npm run bench
 scripts/build-corpus.mjs     下载 + 清洗 + 按小节切分语料（锁定 commit）
 scripts/build-queries.mjs    生成查询与标准答案
 scripts/check-data.mjs       数据体检（标注自洽 / 过期 / 代码块污染）
+scripts/check-docs.mjs       核对文档数字与 results.json
 scripts/verify-minimal.mjs   最小复现（单文档、单查询、多语言）
 scripts/run.mjs              跑基准，输出 results/results.json
 src/tokenize.mjs             中文二元组切分
@@ -125,3 +127,4 @@ REPORT.md                    完整分析与结论
 6. 索引体积口径不统一，不能跨库比较
 7. 二元组方案不处理繁简混用
 8. `Intl.Segmenter` 的分词结果依赖 Node 的 ICU 版本
+9. Lunr 官方插件装了 `@node-rs/jieba` 会走词典分词，结果与本文不同（本次未安装，`results.json` 记录为 `false`）

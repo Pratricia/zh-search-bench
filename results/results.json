@@ -1,10 +1,9 @@
 {
-  "ranAt": "2026-10-28T10:46:07.531Z",
-  "node": "v22.21.1",
-  "platform": "win32 x64",
+  "ranAt": "2026-10-28T10:55:37.988Z",
   "corpus": {
     "documents": 1740,
     "chars": 814596,
+    "hash": "aa4e828a8590a6a3",
     "sources": [
       {
         "name": "vue-docs-zh",
@@ -26,31 +25,49 @@
       }
     ]
   },
-  "querySets": {
-    "zh-1char": {
-      "count": 100,
-      "avgDf": 29.61
-    },
-    "zh-2char": {
-      "count": 200,
-      "avgDf": 12.7
-    },
-    "zh-3char": {
-      "count": 150,
-      "avgDf": 6.61
-    },
-    "zh-4char": {
-      "count": 150,
-      "avgDf": 3.09
-    },
-    "zh-phrase": {
-      "count": 100,
-      "avgDf": 1.42
-    },
-    "handwritten": {
-      "count": 27,
-      "avgDf": 30.22
+  "queries": {
+    "count": 727,
+    "hash": "043bf29e48a16c3c",
+    "sets": {
+      "zh-1char": {
+        "count": 100,
+        "avgDf": 29.61
+      },
+      "zh-2char": {
+        "count": 200,
+        "avgDf": 12.7
+      },
+      "zh-3char": {
+        "count": 150,
+        "avgDf": 6.61
+      },
+      "zh-4char": {
+        "count": 150,
+        "avgDf": 3.09
+      },
+      "zh-phrase": {
+        "count": 100,
+        "avgDf": 1.42
+      },
+      "handwritten": {
+        "count": 27,
+        "avgDf": 30.22
+      }
     }
+  },
+  "environment": {
+    "node": "v22.21.1",
+    "platform": "win32 x64",
+    "packages": {
+      "@orama/orama": "3.1.18",
+      "@orama/tokenizers": "3.1.18",
+      "flexsearch": "0.8.212",
+      "fuse.js": "7.5.0",
+      "lunr": "2.3.9",
+      "lunr-languages": "1.23.0",
+      "minisearch": "7.2.0"
+    },
+    "lunrZhJieba": false
   },
   "k": 10,
   "limit": null,
@@ -109,8 +126,8 @@
           "mrr": 0.933
         }
       },
-      "buildMs": 196.4,
-      "latencyP50Ms": 0.019,
+      "buildMs": 184.6,
+      "latencyP50Ms": 0.018,
       "sizeBytes": 3240753,
       "invalidResults": 0,
       "failures": []
@@ -169,8 +186,8 @@
           "mrr": 0.778
         }
       },
-      "buildMs": 139.4,
-      "latencyP50Ms": 0.002,
+      "buildMs": 135.8,
+      "latencyP50Ms": 0.003,
       "sizeBytes": null,
       "invalidResults": 0,
       "failures": []
@@ -229,8 +246,8 @@
           "mrr": 0.907
         }
       },
-      "buildMs": 100.2,
-      "latencyP50Ms": 0.025,
+      "buildMs": 91.3,
+      "latencyP50Ms": 0.029,
       "sizeBytes": null,
       "invalidResults": 0,
       "failures": []
@@ -289,7 +306,7 @@
           "mrr": 1
         }
       },
-      "buildMs": 411.9,
+      "buildMs": 401.2,
       "latencyP50Ms": 0.012,
       "sizeBytes": null,
       "invalidResults": 0,
@@ -349,8 +366,8 @@
           "mrr": 0.778
         }
       },
-      "buildMs": 163.5,
-      "latencyP50Ms": 0.01,
+      "buildMs": 161.8,
+      "latencyP50Ms": 0.006,
       "sizeBytes": 1793296,
       "invalidResults": 0,
       "failures": []
@@ -409,8 +426,8 @@
           "mrr": 1
         }
       },
-      "buildMs": 1021.9,
-      "latencyP50Ms": 0.067,
+      "buildMs": 1014.5,
+      "latencyP50Ms": 0.073,
       "sizeBytes": 3681965,
       "invalidResults": 0,
       "failures": []
@@ -469,8 +486,8 @@
           "mrr": 0.037
         }
       },
-      "buildMs": 167.7,
-      "latencyP50Ms": 0.005,
+      "buildMs": 163.1,
+      "latencyP50Ms": 0.006,
       "sizeBytes": 614833,
       "invalidResults": 0,
       "failures": []
@@ -529,8 +546,8 @@
           "mrr": 0.667
         }
       },
-      "buildMs": 820.8,
-      "latencyP50Ms": 0.029,
+      "buildMs": 786.8,
+      "latencyP50Ms": 0.026,
       "sizeBytes": 2721582,
       "invalidResults": 0,
       "failures": []
@@ -589,8 +606,8 @@
           "mrr": 1
         }
       },
-      "buildMs": 1320,
-      "latencyP50Ms": 0.365,
+      "buildMs": 1384.2,
+      "latencyP50Ms": 0.358,
       "sizeBytes": 8087344,
       "invalidResults": 0,
       "failures": []
@@ -649,8 +666,8 @@
           "mrr": 0.704
         }
       },
-      "buildMs": 10.3,
-      "latencyP50Ms": 8.457,
+      "buildMs": 6.4,
+      "latencyP50Ms": 8.742,
       "sizeBytes": null,
       "invalidResults": 0,
       "failures": []
@@ -710,7 +727,7 @@
         }
       },
       "buildMs": 5,
-      "latencyP50Ms": 28.235,
+      "latencyP50Ms": 30.221,
       "sizeBytes": null,
       "invalidResults": 0,
       "failures": []
@@ -769,8 +786,8 @@
           "mrr": 0
         }
       },
-      "buildMs": 65.4,
-      "latencyP50Ms": 0.003,
+      "buildMs": 66.8,
+      "latencyP50Ms": 0.006,
       "sizeBytes": 3231693,
       "invalidResults": 0,
       "failures": []
@@ -829,8 +846,8 @@
           "mrr": 0.944
         }
       },
-      "buildMs": 883.1,
-      "latencyP50Ms": 0.083,
+      "buildMs": 855.6,
+      "latencyP50Ms": 0.075,
       "sizeBytes": 15677259,
       "invalidResults": 0,
       "failures": []
@@ -889,8 +906,8 @@
           "mrr": 1
         }
       },
-      "buildMs": 2437.5,
-      "latencyP50Ms": 0.894,
+      "buildMs": 2411.3,
+      "latencyP50Ms": 0.811,
       "sizeBytes": 8725143,
       "invalidResults": 0,
       "failures": []
@@ -949,8 +966,8 @@
           "mrr": 0.753
         }
       },
-      "buildMs": 622.3,
-      "latencyP50Ms": 0.559,
+      "buildMs": 636.3,
+      "latencyP50Ms": 0.607,
       "sizeBytes": 8352877,
       "invalidResults": 0,
       "failures": []

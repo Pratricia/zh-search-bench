@@ -1,4 +1,6 @@
-import { readFileSync, mkdirSync, writeFileSync } from 'node:fs';
+import { createHash } from 'node:crypto';
+import { mkdirSync, readFileSync, writeFileSync } from 'node:fs';
+import { createRequire } from 'node:module';
 import { ADAPTERS } from '../src/adapters.mjs';
 
 /**
@@ -16,14 +18,57 @@ import { ADAPTERS } from '../src/adapters.mjs';
 const K = 10;
 const LIMIT = Number(process.env.BENCH_LIMIT || 0); // 冒烟测试用：分层抽样 N 条
 
-const docs = readFileSync('data/corpus.jsonl', 'utf8')
+const require = createRequire(import.meta.url);
+const sha = (s) => createHash('sha256').update(s).digest('hex').slice(0, 16);
+
+const corpusRaw = readFileSync('data/corpus.jsonl', 'utf8');
+const docs = corpusRaw
   .split('\n')
   .filter(Boolean)
   .map((l) => JSON.parse(l));
 
 const validIds = new Set(docs.map((d) => d.id));
 
-const { queries, sets } = JSON.parse(readFileSync('data/queries.json', 'utf8'));
+const queriesRaw = readFileSync('data/queries.json', 'utf8');
+const { queries, sets, corpusHash: queriesCorpusHash } = JSON.parse(queriesRaw);
+
+const corpusHash = sha(corpusRaw);
+// 查询和语料必须来自同一次构建，否则分数是拿 A 的标准答案考 B
+if (queriesCorpusHash !== corpusHash) {
+  throw new Error('data/queries.json 与 data/corpus.jsonl 不匹配，请重跑 npm run queries');
+}
+
+// 只对查询内容取指纹：generatedAt 每次都变，不该影响可复现性判断
+const queriesHash = sha(JSON.stringify(queries));
+
+const PACKAGES = [
+  '@orama/orama',
+  '@orama/tokenizers',
+  'flexsearch',
+  'fuse.js',
+  'lunr',
+  'lunr-languages',
+  'minisearch',
+];
+const versions = Object.fromEntries(
+  PACKAGES.map((name) => {
+    try {
+      return [name, JSON.parse(readFileSync(`node_modules/${name}/package.json`, 'utf8')).version];
+    } catch {
+      return [name, null];
+    }
+  }),
+);
+
+// Lunr 官方中文插件有两条路径：装了 @node-rs/jieba 用 jieba 分词，
+// 否则退回 Intl.Segmenter + 二元组。两者结果不同，必须记录实际走了哪条。
+let lunrZhJieba = false;
+try {
+  require.resolve('@node-rs/jieba');
+  lunrZhJieba = true;
+} catch {
+  /* 未安装 */
+}
 
 /**
  * 分层抽样。
@@ -207,10 +252,19 @@ writeFileSync(
   JSON.stringify(
     {
       ranAt: new Date().toISOString(),
-      node: process.version,
-      platform: `${process.platform} ${process.arch}`,
-      corpus: { documents: meta.documents, chars: meta.totalChars, sources: meta.sources },
-      querySets: sets,
+      corpus: {
+        documents: meta.documents,
+        chars: meta.totalChars,
+        hash: corpusHash,
+        sources: meta.sources,
+      },
+      queries: { count: queries.length, hash: queriesHash, sets },
+      environment: {
+        node: process.version,
+        platform: `${process.platform} ${process.arch}`,
+        packages: versions,
+        lunrZhJieba,
+      },
       k: K,
       limit: LIMIT || null,
       rows,

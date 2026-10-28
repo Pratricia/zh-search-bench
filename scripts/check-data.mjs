@@ -1,4 +1,5 @@
-import { existsSync, readFileSync } from 'node:fs';
+import { createHash } from 'node:crypto';
+import { readFileSync } from 'node:fs';
 import { tokens } from '../src/tokenize.mjs';
 
 /**
@@ -16,16 +17,21 @@ import { tokens } from '../src/tokenize.mjs';
  */
 
 const problems = [];
-const docs = readFileSync('data/corpus.jsonl', 'utf8')
+const corpusRaw = readFileSync('data/corpus.jsonl', 'utf8');
+const docs = corpusRaw
   .split('\n')
   .filter(Boolean)
   .map((line) => JSON.parse(line));
 const byId = new Map(docs.map((d) => [d.id, d]));
-const { queries, corpusDocs } = JSON.parse(readFileSync('data/queries.json', 'utf8'));
+const { queries, corpusDocs, corpusHash: recordedHash } = JSON.parse(readFileSync('data/queries.json', 'utf8'));
+const corpusHash = createHash('sha256').update(corpusRaw).digest('hex').slice(0, 16);
 
-// 0. 过期检查
+// 0. 过期检查：篇数相同但内容被改过（比如改了清洗规则）也必须能发现
 if (corpusDocs !== docs.length) {
   problems.push(`queries.json 是按 ${corpusDocs} 篇语料生成的，当前语料是 ${docs.length} 篇——请重跑 npm run queries`);
+}
+if (recordedHash !== corpusHash) {
+  problems.push(`语料指纹不一致（记录 ${recordedHash ?? '无'}，当前 ${corpusHash}）——请重跑 npm run queries`);
 }
 
 // 1 & 2. 相关文档存在，且真的包含查询
