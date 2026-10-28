@@ -69,6 +69,25 @@
 
 **Lunr 官方中文插件**：只修了索引端（切二元组），查询端的 `QueryLexer.termSeparator` 仍然只按空白切，整句被当成一个词。按官方写法装上去还是 0，必须自己把查询也切一遍。
 
+## 为什么是测量，不是又一个分词库
+
+这个项目本来有四个方向，前三个被否掉了：
+
+| 方向 | 为什么不做 |
+|---|---|
+| 中文分词库 | jieba / `Intl.Segmenter` 已经存在，包一层只是换 API，没有新增信息 |
+| 本地文件全文搜索 | AnyTXT 免费、覆盖更全，个人做不出差异 |
+| 网页存档工具 | SingleFile / ArchiveBox / monolith 都比一个人做得完整 |
+
+做测量，是因为**没人公布过这些库在中文上的召回数字**——社区只有「中文不行」的口口相传。而测量有一个别的项目没有的性质：它的价值不依赖于「我写得比维护者好」。
+
+两个刻意的取舍：
+
+- **标准答案用子串包含，不用人工标注。** 零主观、可机器复现；代价是只测字面命中，不测语义。
+- **把官方推荐配置也测了。** 只测「默认 + 我的修法」会得出「这些库都不行」，那是把集成难度包装成库的缺陷。Lunr 官方插件修好后是 90.6%，这个数字必须出现在表里。
+
+所有修复路径都来自库自己的源码或官方包：Lunr 是 `lunr-languages` 的 `lunr.zh`，Orama 是 `@orama/tokenizers`。没有一个是「我发明的分词器赢了」。
+
 ## 方法
 
 - **语料**：1740 篇中文文档，81.5 万字（Vue / React 官方中文文档，按 commit SHA 锁定）
@@ -102,6 +121,10 @@ BENCH_LIMIT=60 npm run bench
 - **React 中文文档**（[reactjs/zh-hans.react.dev](https://github.com/reactjs/zh-hans.react.dev)）— CC BY 4.0
 
 语料不入库，由 `npm run corpus` 现场下载，commit SHA 与署名写入 `data/meta.json`。
+
+## License
+
+代码 MIT，见 [LICENSE](LICENSE)。语料不入库，按 CC BY 4.0 使用并保留署名。
 
 ## 目录
 

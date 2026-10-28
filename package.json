@@ -4,6 +4,7 @@
   "private": true,
   "type": "module",
   "description": "JavaScript 全文搜索库的中文召回率基准测试",
+  "license": "MIT",
   "engines": {
     "node": ">=22.15"
   },

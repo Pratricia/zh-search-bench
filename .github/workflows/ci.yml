@@ -1,0 +1,28 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      # 语料按 meta.json 里记录的 commit SHA 下载，不依赖上游 main
+      - run: npm run corpus
+      - run: npm run queries
+
+      # 标注自洽 + 查询未过期 + 最小复现 + 文档数字与结果一致
+      - run: npm run check
+      - run: npm run verify
+      - run: npm run check:docs
